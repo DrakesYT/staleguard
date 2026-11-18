@@ -1,0 +1,8 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+data/
+bifrost-data/
+tests/_test.db
+.pytest_cache/

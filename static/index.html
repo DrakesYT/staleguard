@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StaleGuard: fresh-checked AI answers and meeting briefs</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">◷</span>
+      <div>
+        <h1>StaleGuard</h1>
+        <p>Catches what your AI got out of date, then checks it against the live web.</p>
+      </div>
+    </div>
+    <div id="health" class="health">checking…</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="verify">Check an AI answer</button>
+    <button class="tab" data-tab="brief">Meeting brief</button>
+  </nav>
+
+  <main>
+    <!-- VERIFY -->
+    <section id="tab-verify" class="panel">
+      <form id="verify-form" class="card">
+        <label for="answer">Paste an answer from ChatGPT, Claude, Gemini or any LLM app</label>
+        <textarea id="answer" rows="8" placeholder="e.g. The OpenAI API's cheapest model is gpt-3.5-turbo at $0.002 per 1K tokens. The current CEO of Twitter is Jack Dorsey…"></textarea>
+        <div class="row">
+          <button type="button" class="ghost" id="sample">Load sample</button>
+          <button type="submit" class="primary" id="verify-btn">Check freshness</button>
+        </div>
+      </form>
+      <div id="verify-out"></div>
+    </section>
+
+    <!-- BRIEF -->
+    <section id="tab-brief" class="panel hidden">
+      <form id="brief-form" class="card">
+        <div class="grid3">
+          <div><label for="entity">Company or person</label><input id="entity" required placeholder="e.g. Stripe, or Jensen Huang" /></div>
+          <div><label for="meeting">Meeting time</label><input id="meeting" type="datetime-local" required /></div>
+          <div><label for="purpose">Purpose (optional)</label><input id="purpose" placeholder="e.g. partnership intro" /></div>
+        </div>
+        <div class="row">
+          <span class="hint">Researches the last 30 days, writes a one-page brief, verifies every development, then re-checks it automatically before the meeting.</span>
+          <button type="submit" class="primary" id="brief-btn">Build brief</button>
+        </div>
+      </form>
+      <div id="brief-list" class="brief-list"></div>
+      <div id="brief-out"></div>
+    </section>
+  </main>
+
+  <footer class="foot">Every model call goes through the <b>Bifrost</b> gateway · live search by <b>Tavily</b></footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
