@@ -14,12 +14,13 @@ from .models import BriefContent, Claim, Source
 from .search import search
 from .claims import _valid_category
 
+# Plain keyword queries: Tavily documents no boolean operators, so "OR" would just be another word.
 ANGLES = [
     "{e} latest news",
-    "{e} funding OR acquisition OR earnings",
-    "{e} launches OR announces new product",
-    "{e} hires OR appoints OR steps down",
-    "{e} partnership OR deal OR lawsuit",
+    "{e} funding acquisition earnings",
+    "{e} new product launch announcement",
+    "{e} executive appointment leadership change",
+    "{e} partnership deal lawsuit",
 ]
 MAX_SOURCES = 18
 

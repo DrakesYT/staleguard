@@ -7,7 +7,7 @@ re-checks pass fresh=True to bypass it.
 from __future__ import annotations
 
 import time
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse
 
@@ -62,9 +62,12 @@ async def search(query: str, *, news: bool = False, days: int = 30, max_results:
     if settings.mock:
         results = mock.search(query, news=news)
     else:
-        kwargs: dict = {"query": query, "max_results": max_results, "search_depth": "basic"}
+        # include_published_date: general results carry dates too (news always does). The score needs them.
+        kwargs: dict = {"query": query, "max_results": max_results, "search_depth": "basic",
+                        "include_published_date": True}
         if news:
-            kwargs.update(topic="news", days=days)
+            # `days` is no longer in the Tavily API reference; start_date is the documented filter.
+            kwargs.update(topic="news", start_date=(date.today() - timedelta(days=days)).isoformat())
         try:
             resp = await _tavily().search(**kwargs)
         except SearchError:
