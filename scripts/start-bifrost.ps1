@@ -43,7 +43,12 @@ if ($env:BIFROST_DEMO_BROKEN_PROVIDER) {
     Write-Host "Demo: '$($env:BIFROST_DEMO_BROKEN_PROVIDER)' is configured with an invalid key to force a fallback"
 }
 
-$config = [ordered]@{ setup_token = "env.BIFROST_SETUP_TOKEN"; providers = $providers }
+# Current Bifrost requires a virtual key on /v1 inference by default; this local setup opts out.
+$config = [ordered]@{
+    setup_token = "env.BIFROST_SETUP_TOKEN"
+    client      = [ordered]@{ enforce_auth_on_inference = $false }
+    providers   = $providers
+}
 $json = $config | ConvertTo-Json -Depth 8
 [IO.File]::WriteAllText((Join-Path $data "config.json"), $json, (New-Object System.Text.UTF8Encoding($false)))
 

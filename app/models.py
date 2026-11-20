@@ -41,6 +41,7 @@ class ClaimResult(BaseModel):
     current_value: str = ""        # what the live web says now, if different
     evidence: list[Evidence] = Field(default_factory=list)
     checked_at: str
+    error: str = ""                # set when this claim's check failed (search/LLM error)
 
 
 class Usage(BaseModel):

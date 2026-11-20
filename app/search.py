@@ -6,6 +6,7 @@ re-checks pass fresh=True to bypass it.
 """
 from __future__ import annotations
 
+import re
 import time
 from datetime import date, datetime, timedelta
 from email.utils import parsedate_to_datetime
@@ -49,8 +50,34 @@ def normalise_date(raw: str | None) -> str | None:
 
 
 def _domain(url: str) -> str:
-    host = urlparse(url).netloc.lower()
-    return host[4:] if host.startswith("www.") else host
+    u = urlparse(url)
+    host = u.netloc.lower()
+    host = host[4:] if host.startswith("www.") else host
+    # Tavily news sometimes returns Google News redirect links (google.com/url?q=<opaque>); the real
+    # publisher isn't recoverable, so label them honestly instead of crediting "google.com".
+    if host == "google.com" and u.path.startswith("/url"):
+        return "news.google.com"
+    return host
+
+
+def title_key(title: str) -> str:
+    """Normalised title for de-duplicating the same article reached via different URLs."""
+    t = re.sub(r"\s+[-|–]\s+[^-|–]{2,40}$", "", title or "")   # drop a trailing " - Publisher"
+    return re.sub(r"[^a-z0-9]+", " ", t.lower()).strip()
+
+
+def dedupe(items: list[dict]) -> list[dict]:
+    """Drop repeats by URL or by (non-trivial) title, keeping the first occurrence."""
+    seen_urls, seen_titles, out = set(), set(), []
+    for it in items:
+        tk = title_key(it.get("title", ""))
+        if it["url"] in seen_urls or (len(tk) > 15 and tk in seen_titles):
+            continue
+        seen_urls.add(it["url"])
+        if len(tk) > 15:
+            seen_titles.add(tk)
+        out.append(it)
+    return out
 
 
 async def search(query: str, *, news: bool = False, days: int = 30, max_results: int = 5, fresh: bool = False) -> list[dict]:

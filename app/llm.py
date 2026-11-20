@@ -52,6 +52,8 @@ async def chat(
         "temperature": temperature,
         "max_tokens": max_tokens,
     }
+    if settings.reasoning_effort:
+        payload["reasoning_effort"] = settings.reasoning_effort
     fallbacks = [f for f in settings.fallbacks if f != model]
     if fallbacks:
         payload["fallbacks"] = fallbacks
@@ -65,7 +67,7 @@ async def chat(
 
     data = r.json()
     try:
-        text = data["choices"][0]["message"]["content"] or ""
+        text = content_text(data["choices"][0]["message"]["content"])
     except (KeyError, IndexError, TypeError) as e:
         raise LLMError(f"Unexpected Bifrost response: {str(data)[:400]}") from e
 
@@ -81,6 +83,24 @@ async def chat(
         bool(routing.get("is_fallback")),
     )
     return text
+
+
+def content_text(content: Any) -> str:
+    """Message content as plain text. Some providers (Gemini via Bifrost) sometimes return a list of
+    content parts instead of a string; keep the text parts and drop reasoning/thinking parts."""
+    if content is None:
+        return ""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        out = []
+        for part in content:
+            if isinstance(part, str):
+                out.append(part)
+            elif isinstance(part, dict) and part.get("type", "text") in ("text", "output_text"):
+                out.append(str(part.get("text") or ""))
+        return "".join(out)
+    raise TypeError(f"unsupported content type {type(content).__name__}")
 
 
 def parse_json(text: str) -> Any:

@@ -12,8 +12,14 @@ from .models import Usage
 
 _current: ContextVar[Usage | None] = ContextVar("usage", default=None)
 
-# Approximate list prices, USD per 1M tokens (input, output). Estimates for the cost meter only.
+# List prices, USD per 1M tokens (input, output), for the cost meter. The first block matches the
+# prices Bifrost's model catalog charged in its request logs (Nov 2026); older entries are estimates.
 PRICES: dict[str, tuple[float, float]] = {
+    "gemini-3.5-flash-lite": (0.30, 2.50),
+    "gemini-3.5-flash": (1.50, 9.00),
+    "openai/gpt-oss-120b": (0.15, 0.60),
+    "openai/gpt-oss-20b": (0.075, 0.30),
+    "qwen/qwen3.8-27b": (0.80, 4.00),
     "gpt-4o-mini": (0.15, 0.60),
     "gpt-4o": (2.50, 10.00),
     "gpt-4.1-mini": (0.40, 1.60),

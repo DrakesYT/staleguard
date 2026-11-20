@@ -6,12 +6,13 @@
 """
 from __future__ import annotations
 
+import re
 import uuid
 from datetime import date
 
 from .llm import chat_json
 from .models import BriefContent, Claim, Source
-from .search import search
+from .search import dedupe, search
 from .claims import _valid_category
 
 # Plain keyword queries: Tavily documents no boolean operators, so "OR" would just be another word.
@@ -23,6 +24,7 @@ ANGLES = [
     "{e} partnership deal lawsuit",
 ]
 MAX_SOURCES = 18
+MIN_ON_TOPIC = 5
 
 BRIEF_SYSTEM = """You write a one-page pre-meeting briefing. Today is {today}. The meeting is at {meeting}.
 Subject: {entity}. Meeting purpose: {purpose}.
@@ -43,13 +45,31 @@ async def research(entity: str) -> list[Source]:
     results: list[dict] = []
     for angle in ANGLES:
         results += await search(angle.format(e=entity), news=True, days=30, max_results=5)
-    seen, unique = set(), []
-    for r in results:
-        if r["url"] not in seen:
-            seen.add(r["url"])
-            unique.append(r)
+    unique = dedupe(results)
     unique.sort(key=lambda r: r.get("published") or "", reverse=True)
-    return [Source(n=i + 1, **r) for i, r in enumerate(unique[:MAX_SOURCES])]
+    # Keyword angles ("appointment", "lawsuit") also pull in articles about other organisations.
+    # Keep sources that name the entity; if that leaves too few, keep the rest after them.
+    on_topic = [r for r in unique if mentions(entity, r)]
+    if len(on_topic) < MIN_ON_TOPIC:
+        on_topic += [r for r in unique if r not in on_topic]
+    return [Source(n=i + 1, **r) for i, r in enumerate(on_topic[:MAX_SOURCES])]
+
+
+def mentions(entity: str, r: dict) -> bool:
+    """Does the title/snippet name the entity? Whole-word, case-insensitive ('Stripe' != 'Stripes')."""
+    text = f"{r.get('title', '')} {r.get('snippet', '')}"
+    return re.search(rf"(?<!\w){re.escape(entity.strip())}(?!\w)", text, re.I) is not None
+
+
+def _source_numbers(raw) -> list[int]:
+    """Citation numbers from the model: accepts [1, 2], ["1", "[2]"], "1, 3" or a single 4."""
+    items = raw if isinstance(raw, list) else re.findall(r"\d+", str(raw or ""))
+    out = []
+    for x in items:
+        m = re.search(r"\d+", str(x))
+        if m:
+            out.append(int(m.group()))
+    return out
 
 
 async def write_brief(entity: str, meeting_time: str, purpose: str, sources: list[Source]) -> tuple[BriefContent, list[Claim]]:
@@ -78,7 +98,7 @@ async def write_brief(entity: str, meeting_time: str, purpose: str, sources: lis
     for d in data.get("developments", [])[:7]:
         if not isinstance(d, dict) or not d.get("text"):
             continue
-        cited = [by_n[n] for n in d.get("sources", []) if isinstance(n, int) and n in by_n]
+        cited = [by_n[n] for n in _source_numbers(d.get("sources")) if n in by_n]
         claims.append(Claim(
             id=uuid.uuid4().hex[:8],
             text=str(d["text"]),

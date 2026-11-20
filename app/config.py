@@ -20,12 +20,15 @@ class Settings:
     # Bifrost gateway (OpenAI-compatible). Every LLM call goes through it.
     bifrost_url: str = os.getenv("BIFROST_URL", "http://localhost:8080").rstrip("/")
     # Cheap model: claim extraction + stance judging. Smart model: brief writing + answer refresh.
-    model_fast: str = os.getenv("MODEL_FAST", "gemini/gemini-2.5-flash")
-    model_smart: str = os.getenv("MODEL_SMART", "gemini/gemini-2.5-flash")
+    model_fast: str = os.getenv("MODEL_FAST", "gemini/gemini-3.5-flash-lite")
+    model_smart: str = os.getenv("MODEL_SMART", "groq/openai/gpt-oss-120b")
     # Bifrost tries these in order if the primary provider fails.
     fallbacks: list[str] = field(
-        default_factory=lambda: _list(os.getenv("MODEL_FALLBACKS", "groq/llama-3.3-70b-versatile"))
+        default_factory=lambda: _list(os.getenv(
+            "MODEL_FALLBACKS", "groq/openai/gpt-oss-120b,gemini/gemini-3.5-flash-lite"))
     )
+    # Reasoning models (gpt-oss, Gemini 3.x flash) otherwise spend most of max_tokens thinking.
+    reasoning_effort: str = os.getenv("REASONING_EFFORT", "low")
     tavily_api_key: str = os.getenv("TAVILY_API_KEY", "")
     # STALEGUARD_MOCK=1 runs fully offline with canned search + LLM output (UI dev / demo backup).
     mock: bool = os.getenv("STALEGUARD_MOCK", "0") == "1"

@@ -44,7 +44,7 @@ app = FastAPI(title="StaleGuard", version="0.1.0", lifespan=lifespan)
 
 
 def _fail(e: Exception) -> HTTPException:
-    if isinstance(e, (LLMError, SearchError)):
+    if isinstance(e, (LLMError, SearchError, pipeline.CheckFailed)):
         return HTTPException(status_code=502, detail=str(e))
     log.exception("unhandled error")
     return HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")

@@ -51,6 +51,53 @@ def test_parse_json_tolerates_fences_and_chatter():
     assert parse_json('here: {"claims": []} done') == {"claims": []}
 
 
+def test_content_text_handles_part_lists():
+    from app.llm import content_text
+    assert content_text("plain") == "plain"
+    assert content_text(None) == ""
+    parts = [{"type": "reasoning", "text": "thinking..."}, {"type": "text", "text": '{"a": '}, {"type": "text", "text": "1}"}]
+    assert parse_json(content_text(parts)) == {"a": 1}
+
+
+def test_source_numbers_accepts_loose_formats():
+    from app.brief import _source_numbers
+    assert _source_numbers([1, "2", "[3]"]) == [1, 2, 3]
+    assert _source_numbers("4, 5") == [4, 5]
+    assert _source_numbers(None) == []
+
+
+def test_one_failed_claim_does_not_sink_the_run(monkeypatch):
+    import asyncio
+
+    from app import verify
+    from app.models import Claim
+
+    async def boom(*a, **k):
+        raise RuntimeError("search exploded")
+
+    monkeypatch.setattr(verify, "gather_evidence", boom)
+    r = asyncio.run(verify.verify_claim(Claim(id="x", text="X costs $5", category="pricing")))
+    assert r.verdict == "unverified" and "search exploded" in r.error
+
+
+def test_google_redirects_and_duplicate_titles():
+    from app.search import _domain, dedupe
+    assert _domain("https://www.google.com/url?opi=1&q=abc") == "news.google.com"
+    assert _domain("https://www.reuters.com/x") == "reuters.com"
+    items = [
+        {"url": "https://a.com/1", "title": "Stripe Wants to Become the Financial OS for AI"},
+        {"url": "https://www.google.com/url?q=zz", "title": "Stripe Wants to Become the Financial OS for AI - Substack"},
+        {"url": "https://a.com/1", "title": "other"},
+    ]
+    assert [i["url"] for i in dedupe(items)] == ["https://a.com/1"]
+
+
+def test_brief_sources_must_name_the_entity():
+    from app.brief import mentions
+    assert mentions("Stripe", {"title": "HSBC UK and Stripe launch Tap to Pay", "snippet": ""})
+    assert not mentions("Stripe", {"title": "Stars and Stripes: new director appointed", "snippet": ""})
+
+
 def test_normalise_date():
     assert normalise_date("Mon, 10 Nov 2025 08:00:00 GMT") == "2025-11-10"
     assert normalise_date("2025-11-10T08:00:00Z") == "2025-11-10"

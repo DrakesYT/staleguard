@@ -15,6 +15,10 @@ from .verify import verify_claim
 
 VERDICTS = ["current", "aging", "disputed", "outdated", "unverified"]
 
+
+class CheckFailed(RuntimeError):
+    """Every claim check in a run failed (upstream outage)."""
+
 REFRESH_SYSTEM = """Rewrite the answer so it is up to date. Today is {today}.
 Apply ONLY the corrections listed. Keep everything else, including tone and structure.
 After each corrected statement add a marker like [updated: <source domain>].
@@ -33,7 +37,11 @@ async def _verify_all(jobs) -> list[ClaimResult]:
         async with sem:
             return await coro
 
-    return list(await asyncio.gather(*(run(j) for j in jobs)))
+    results = list(await asyncio.gather(*(run(j) for j in jobs)))
+    if results and all(r.error for r in results):
+        # Every check failed: almost certainly an outage (Bifrost/Tavily down), not bad claims.
+        raise CheckFailed(f"All {len(results)} claim checks failed. First error: {results[0].error}")
+    return results
 
 
 def _summary(results: list[ClaimResult]) -> tuple[int, dict[str, int]]:
