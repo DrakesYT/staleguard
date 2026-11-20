@@ -6,6 +6,9 @@ Built for the Geek Room **Global AI Hackathon**:
 - **Primary:** [Tavily] Build a Stale-Answer Detector for AI Applications (Tavily + Bifrost)
 - **Also covers:** [Tavily] Tavily Research Agent (pre-meeting brief, last 30 days, source-backed)
 
+**▶ Demo video (1:53): https://youtu.be/fgAJOod__vM**
+<sub>Recorded from the live app. Waits on live web checks are sped up and labelled on screen; the narration is a synthetic voice.</sub>
+
 | | |
 |---|---|
 | **Accuracy** | 19/19 on the tuning set (stable over 2 runs), **8/8 on a held-out set never used for tuning**, which includes a CEO change from 8 days before the eval ([eval/](eval/README.md)) |
@@ -171,6 +174,7 @@ eval/            golden + held-out claim sets, runner, results
 ## AI usage disclosure
 
 - **In the product:** LLMs reached through Bifrost do four jobs: extract claims, label evidence, write briefs and rewrite answers. Gemini 3.5 Flash-Lite and Groq-hosted gpt-oss / Qwen models are used. Tavily provides the live web data. The freshness score is computed by code, not by a model.
+- **Demo video:** recorded by a script driving the live app in a browser; the voiceover is the built-in Windows text-to-speech voice reading the script in `docs/DEMO_SCRIPT.md`.
 - **In development:** built with help from Claude (Anthropic) via Claude Code as a coding assistant. That help covered code, tests, the eval harness and documentation. The eval ground truth was checked against live sources, and design decisions were reviewed by the author.
 
 ## Team
