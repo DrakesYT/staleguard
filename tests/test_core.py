@@ -190,6 +190,23 @@ def test_simulated_outage_shows_fallback():
     assert all(call["fallback"] for call in rep["usage"]["calls"])
 
 
+def test_bifrost_governance_errors_are_explained():
+    import httpx
+
+    from app.llm import _explain_error
+    budget = httpx.Response(402, json={"type": "budget_exceeded", "error": {"message": "Budget exceeded"}})
+    assert "budget" in _explain_error(budget).lower() and "BIFROST_BUDGET_USD" in _explain_error(budget)
+    no_key = httpx.Response(401, json={"type": "virtual_key_required"})
+    assert "virtual key" in _explain_error(no_key)
+    other = httpx.Response(500, text="boom")
+    assert _explain_error(other).startswith("Bifrost returned 500")
+
+
+def test_budget_endpoint_in_mock_mode():
+    with TestClient(app) as c:
+        assert c.get("/api/budget").json() == {"available": False, "reason": "mock mode"}
+
+
 def test_normalise_date():
     assert normalise_date("Mon, 10 Nov 2025 08:00:00 GMT") == "2025-11-10"
     assert normalise_date("2025-11-10T08:00:00Z") == "2025-11-10"

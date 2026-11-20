@@ -12,7 +12,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import pipeline, store
+from . import llm, pipeline, store
 from .config import settings
 from .llm import LLMError
 from .models import Brief, BriefRequest, VerifyReport, VerifyRequest
@@ -74,9 +74,16 @@ async def health():
         "mock": settings.mock,
         "bifrost": {"url": settings.bifrost_url, "reachable": bifrost_ok},
         "tavily_key_set": bool(settings.tavily_api_key) or settings.mock,
+        "virtual_key": settings.bifrost_vk_id if settings.bifrost_virtual_key else None,
         "models": {"fast": settings.model_fast, "smart": settings.model_smart, "fallbacks": settings.fallbacks,
                    "outage_demo": settings.outage_model},
     }
+
+
+@app.get("/api/budget")
+async def budget():
+    """Spend and rate-limit usage of the app's Bifrost virtual key (read live from Bifrost)."""
+    return await llm.budget_status()
 
 
 @app.post("/api/verify", response_model=VerifyReport)

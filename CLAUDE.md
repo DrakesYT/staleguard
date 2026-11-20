@@ -9,13 +9,19 @@ Secondary: **[Tavily] Research Agent** (one-page pre-meeting brief, last 30 days
 The brief is a showcase consumer of the stale-answer engine: every brief development is verified.
 
 ## Run
-- Gateway: `.\scripts\start-bifrost.ps1` → http://localhost:8080 (add provider keys in its UI)
-- App: `.\scripts\start-app.ps1` → http://localhost:8000
+- Gateway: `.\scripts\start-bifrost.ps1` → http://localhost:8080. Writes `bifrost-data/config.json` from `.env`
+  (provider keys as env refs, retries, virtual key `staleguard-app` with daily budget `BIFROST_BUDGET_USD`,
+  inference auth ON). Restart it after changing provider keys or the budget.
+- App: `.\scripts\start-app.ps1` → http://localhost:8000. Sends `x-bf-vk` on every LLM call.
 - Offline: `STALEGUARD_MOCK=1` in `.env` (no keys needed, deterministic)
 - Tests: `.\.venv\Scripts\python -m pytest -q` (run in mock mode automatically)
+- Eval: `.\.venv\Scripts\python -m eval.run_eval [--set holdout]` (live; ~35 Tavily searches; free-tier
+  rate limits mean don't run it back to back)
 
 ## Layout
-- `app/llm.py`: ONLY place that calls an LLM. Goes through Bifrost `/v1/chat/completions` with `fallbacks`; records usage + `extra_fields.routing_info`.
+- `app/llm.py`: ONLY place that calls an LLM (and Bifrost's governance API for the budget). Goes through Bifrost `/v1/chat/completions` with `fallbacks` + virtual key; records a per-call routing log from `extra_fields.routing_info`. `simulate_outage()` drives the fallback demo.
+- `app/pipeline.py`: `verify_answer_events` is the single verify path (SSE endpoint and JSON endpoint both use it).
+- `eval/`: golden (tuned on) + holdout (never tuned on) claim sets and the runner.
 - `app/search.py`: ONLY place that calls Tavily. Normalises dates to YYYY-MM-DD; 10-min cache, `fresh=True` bypasses.
 - `app/claims.py`: claim extraction prompt. `app/verify.py`: evidence + stance per claim.
 - `app/scoring.py`: deterministic freshness score. The LLM must never produce the score. Covered by tests.

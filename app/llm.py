@@ -68,13 +68,14 @@ async def chat(
     if fallbacks:
         payload["fallbacks"] = fallbacks
 
+    headers = {"x-bf-vk": settings.bifrost_virtual_key} if settings.bifrost_virtual_key else {}
     t0 = time.perf_counter()
     try:
-        r = await _http().post(f"{settings.bifrost_url}/v1/chat/completions", json=payload)
+        r = await _http().post(f"{settings.bifrost_url}/v1/chat/completions", json=payload, headers=headers)
     except httpx.HTTPError as e:
         raise LLMError(f"Cannot reach Bifrost at {settings.bifrost_url}: {e}") from e
     if r.status_code != 200:
-        raise LLMError(f"Bifrost returned {r.status_code}: {r.text[:400]}")
+        raise LLMError(_explain_error(r))
 
     data = r.json()
     try:
@@ -97,6 +98,52 @@ async def chat(
         ms=int((time.perf_counter() - t0) * 1000),
     )
     return text
+
+
+def _explain_error(r: httpx.Response) -> str:
+    """Turn Bifrost governance refusals into messages a user can act on."""
+    try:
+        kind = (r.json() or {}).get("type", "")
+    except ValueError:
+        kind = ""
+    if r.status_code == 402 or kind == "budget_exceeded":
+        return ("The daily budget on the Bifrost virtual key is used up, so Bifrost refused the call. "
+                "Raise BIFROST_BUDGET_USD in .env and restart Bifrost, or wait for the daily reset.")
+    if r.status_code == 401 or kind in ("virtual_key_required", "virtual_key_invalid"):
+        return ("Bifrost refused the call: missing or unknown virtual key. Start Bifrost with "
+                "scripts/start-bifrost.ps1 (it writes BIFROST_VIRTUAL_KEY to .env), then restart the app.")
+    if r.status_code == 429 and kind in ("rate_limited", "token_limited", "request_limited"):
+        return "The Bifrost virtual key's hourly rate limit was reached. Try again shortly."
+    return f"Bifrost returned {r.status_code}: {r.text[:400]}"
+
+
+async def budget_status() -> dict:
+    """The app's virtual-key budget and rate limit, as Bifrost's governance API reports them."""
+    if settings.mock:
+        return {"available": False, "reason": "mock mode"}
+    if not settings.bifrost_virtual_key:
+        return {"available": False, "reason": "no virtual key configured"}
+    try:
+        r = await _http().get(f"{settings.bifrost_url}/api/governance/virtual-keys/{settings.bifrost_vk_id}",
+                              headers={"X-Bifrost-Setup-Token": settings.bifrost_setup_token}, timeout=5)
+        r.raise_for_status()
+        data = r.json()
+    except (httpx.HTTPError, ValueError) as e:
+        return {"available": False, "reason": f"governance API: {e}"[:200]}
+    vk = data.get("virtual_key", data)
+    budget = (vk.get("budgets") or [{}])[0]
+    rl = vk.get("rate_limit") or {}
+    return {
+        "available": True,
+        "virtual_key": vk.get("id", settings.bifrost_vk_id),
+        "name": vk.get("name", ""),
+        "budget": {"used": float(budget.get("current_usage") or 0), "limit": float(budget.get("max_limit") or 0),
+                   "reset": budget.get("reset_duration", ""), "last_reset": budget.get("last_reset", "")},
+        "rate_limit": {
+            "requests": [rl.get("request_current_usage", 0), rl.get("request_max_limit"), rl.get("request_reset_duration")],
+            "tokens": [rl.get("token_current_usage", 0), rl.get("token_max_limit"), rl.get("token_reset_duration")],
+        },
+    }
 
 
 _outage: ContextVar[bool] = ContextVar("simulate_outage", default=False)

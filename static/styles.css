@@ -95,6 +95,11 @@ h2 { font-size: 16px; margin: 22px 0 10px; }
 .actions { display: flex; gap: 8px; justify-content: flex-end; margin: 10px 0; }
 
 /* form extras */
+.label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.label-row label { margin: 0; }
+a.bookmarklet { display: inline-block; border: 1px dashed var(--accent); border-radius: 99px; padding: 1px 10px; margin: 0 2px;
+  font-weight: 600; cursor: grab; text-decoration: none; }
+.from-note:not(:empty) { font-size: 12.5px; color: var(--accent); margin-bottom: 6px; }
 .row-right { display: flex; align-items: center; gap: 14px; }
 label.toggle { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: 12.5px; color: var(--muted); cursor: pointer; white-space: nowrap; }
 label.toggle input { width: auto; accent-color: var(--disputed); }
@@ -140,6 +145,9 @@ table.routing th { text-align: left; color: var(--muted); font-weight: 500; bord
 table.routing td { padding: 4px 6px; border-bottom: 1px dashed var(--line); }
 table.routing tr.fb td { color: var(--disputed); }
 table.routing .num { text-align: right; }
+.budget { margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+.budget b { color: var(--text); }
+.budget .bar { height: 4px; margin-top: 5px; max-width: 420px; }
 .tag { border: 1px solid var(--disputed); border-radius: 99px; padding: 0 7px; font-size: 11px; }
 
 .foot { text-align: center; color: var(--muted); font-size: 12px; padding: 20px; border-top: 1px solid var(--line); }

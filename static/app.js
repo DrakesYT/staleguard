@@ -35,8 +35,9 @@ document.querySelectorAll(".tab").forEach((t) =>
     $("#health").innerHTML =
       `<span class="dot" style="background:${ok ? "var(--current)" : "var(--outdated)"}"></span>` +
       (h.mock ? "Offline demo mode" : `Bifrost ${h.bifrost.reachable ? "connected" : "unreachable"} · Tavily ${h.tavily_key_set ? "ready" : "key missing"}`) +
+      (h.virtual_key ? `<span id="health-budget" title="Every model call is authorised by this Bifrost virtual key"></span>` : "") +
       `<br><span title="Bifrost tries these in order">${esc(chain.join(" → "))}</span>`;
-    document.querySelectorAll(".outage-model").forEach((el) => (el.textContent = h.models.outage_demo));
+    if (h.virtual_key) refreshBudget();
   } catch { $("#health").textContent = "API offline"; }
 })();
 
@@ -64,9 +65,28 @@ function usageBlock(u, simulated) {
     <span>Fallbacks <b class="${u.fallbacks_used ? "warn" : ""}">${u.fallbacks_used}</b></span>
     <span>Tavily searches <b>${u.tavily_searches}</b> (+${u.cache_hits} cached)</span>
     <span>Served by <b>${served}</b></span></div>
+    <div class="budget-slot"></div>
     ${calls.length ? `<details><summary>Bifrost routing log · ${calls.length} calls</summary>
       <table class="routing"><thead><tr><th>Task</th><th>Requested</th><th>Served by</th><th>Route</th><th class="num">Tokens</th><th class="num">Time</th></tr></thead>
       <tbody>${rows}</tbody></table></details>` : ""}</div>`;
+}
+
+// Spend of the app's Bifrost virtual key, read live from Bifrost's governance API.
+const money = (x) => "$" + (x < 0.01 ? x.toFixed(4) : x.toFixed(2));
+async function refreshBudget() {
+  let b;
+  try { b = await api("/api/budget"); } catch { return; }
+  if (!b.available) return;
+  const { used, limit, reset } = b.budget;
+  const pct = limit ? Math.min(100, (used / limit) * 100) : 0;
+  const [req, reqMax] = b.rate_limit.requests;
+  const period = reset === "1d" ? "today" : `per ${reset}`;
+  const html = `<div class="budget"><span>Bifrost virtual key <b>${esc(b.virtual_key)}</b> · spent ${period}
+      <b>${money(used)}</b> of ${money(limit)} budget${reqMax ? ` · ${req}/${reqMax} requests this hour` : ""}</span>
+    <div class="bar"><i style="width:${Math.max(pct, 0.8)}%;background:${pct > 85 ? "var(--outdated)" : "var(--current)"}"></i></div></div>`;
+  document.querySelectorAll(".budget-slot").forEach((el) => (el.innerHTML = html));
+  const hb = $("#health-budget");
+  if (hb) hb.textContent = ` · budget ${money(used)} / ${money(limit)} ${period}`;
 }
 
 function evidenceRows(evidence) {
@@ -96,7 +116,8 @@ function claimCard(c, r) {
 }
 
 // ---------- verify: streaming ----------
-$("#sample").addEventListener("click", () => ($("#answer").value = SAMPLE));
+$("#sample").addEventListener("click", () => { $("#answer").value = SAMPLE; $("#from-note").innerHTML = ""; });
+$("#answer").addEventListener("input", () => ($("#from-note").innerHTML = ""));
 
 let V = null;   // state of the current check: { text, claims, results: {id: ClaimResult}, phase, report }
 
@@ -197,6 +218,7 @@ function renderVerify() {
     <h2>Claims</h2>${claims.map((c) => claimCard(c, V.results[c.id])).join("")}
     ${r && r.refreshed_answer ? `<h2>Refreshed answer</h2><div class="card"><div class="refreshed">${esc(r.refreshed_answer)}</div></div>` : ""}
     ${r ? usageBlock(r.usage, r.simulated_outage) : ""}`;
+  if (r) refreshBudget();
 }
 
 // ---------- popover for highlighted claims ----------
@@ -249,6 +271,32 @@ document.addEventListener("keydown", (e) => {
   if (m && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); pinned = m; showPop(m); }
   if (e.key === "Escape") { pinned = null; pop.classList.add("hidden"); }
 });
+
+// ---------- bookmarklet ----------
+// Select text on any page, click the bookmarklet: it opens StaleGuard with the text in the URL fragment
+// (#check=...). Fragments never reach a server and survive Cross-Origin-Opener-Policy, unlike postMessage.
+const BOOKMARKLET = `javascript:(()=>{const t=String(getSelection()).trim();if(t.length<20){alert('StaleGuard: select the AI answer (at least a sentence) first.');return}` +
+  `const w=open('${location.origin}/#check='+encodeURIComponent(t.slice(0,20000))+'&from='+encodeURIComponent(location.hostname),'staleguard');` +
+  `if(!w)alert('StaleGuard: allow pop-ups for this site to check selected text.')})()`;
+const bm = $("#bookmarklet");
+if (bm) {
+  bm.href = BOOKMARKLET;
+  bm.addEventListener("click", (e) => { e.preventDefault(); alert("Drag this button to your bookmarks bar, then select an AI answer on any page and click the bookmark."); });
+}
+
+function checkFromHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  const text = p.get("check");
+  if (!text) return;
+  history.replaceState(null, "", location.pathname + location.search);   // don't keep the text in the URL
+  document.querySelector('.tab[data-tab="verify"]').click();
+  $("#answer").value = text;
+  const from = p.get("from");
+  $("#from-note").innerHTML = from ? `Text selected on <b>${esc(from)}</b>, sent by the StaleGuard bookmarklet` : "";
+  $("#verify-form").requestSubmit();
+}
+window.addEventListener("hashchange", checkFromHash);   // pop-up already open: only the fragment changes
+checkFromHash();
 
 // ---------- brief ----------
 (() => { // default meeting time: tomorrow 10:00
@@ -313,6 +361,7 @@ function renderBrief(b) {
     </div>
     <div class="card checks"><b>Freshness checks</b>${b.pre_meeting_checked ? " · pre-meeting re-check done" : ` · auto re-check runs shortly before the meeting`}${checks}</div>
     ${usageBlock(b.usage, false)}`;
+  refreshBudget();
 
   $("#recheck").addEventListener("click", async (ev) => {
     ev.target.disabled = true; ev.target.textContent = "Re-checking…";

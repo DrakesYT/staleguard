@@ -27,7 +27,11 @@
     <!-- VERIFY -->
     <section id="tab-verify" class="panel">
       <form id="verify-form" class="card">
-        <label for="answer">Paste an answer from ChatGPT, Claude, Gemini or any LLM app</label>
+        <div class="label-row">
+          <label for="answer">Paste an answer from ChatGPT, Claude, Gemini or any LLM app</label>
+          <span class="hint">or check text on any page: drag <a id="bookmarklet" class="bookmarklet" href="#" title="Drag me to your bookmarks bar">✓ StaleGuard it</a> to your bookmarks bar</span>
+        </div>
+        <div id="from-note" class="from-note"></div>
         <textarea id="answer" rows="8" placeholder="e.g. The OpenAI API's cheapest model is gpt-3.5-turbo at $0.002 per 1K tokens. The current CEO of Twitter is Jack Dorsey…"></textarea>
         <div class="row">
           <button type="button" class="ghost" id="sample">Load sample</button>

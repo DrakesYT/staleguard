@@ -19,6 +19,11 @@ def _list(value: str | None) -> list[str]:
 class Settings:
     # Bifrost gateway (OpenAI-compatible). Every LLM call goes through it.
     bifrost_url: str = os.getenv("BIFROST_URL", "http://localhost:8080").rstrip("/")
+    # Virtual key sent on every LLM call (x-bf-vk). Bifrost enforces its budget and rate limit.
+    bifrost_virtual_key: str = os.getenv("BIFROST_VIRTUAL_KEY", "")
+    bifrost_vk_id: str = os.getenv("BIFROST_VK_ID", "staleguard-app")
+    # Lets the app read the key's budget from Bifrost's governance API (OSS, before an admin exists).
+    bifrost_setup_token: str = os.getenv("BIFROST_SETUP_TOKEN", "")
     # Cheap model: claim extraction + stance judging. Smart model: brief writing + answer refresh.
     model_fast: str = os.getenv("MODEL_FAST", "gemini/gemini-3.5-flash-lite")
     model_smart: str = os.getenv("MODEL_SMART", "groq/openai/gpt-oss-120b")
