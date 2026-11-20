@@ -3,9 +3,10 @@ from __future__ import annotations
 
 import asyncio
 import uuid
+from collections.abc import AsyncIterator
 from datetime import date, datetime, timezone
 
-from . import store, usage
+from . import llm, store, usage
 from .brief import cited_evidence, research, write_brief
 from .claims import extract_claims
 from .config import settings
@@ -38,10 +39,14 @@ async def _verify_all(jobs) -> list[ClaimResult]:
             return await coro
 
     results = list(await asyncio.gather(*(run(j) for j in jobs)))
+    _raise_if_all_failed(results)
+    return results
+
+
+def _raise_if_all_failed(results: list[ClaimResult]) -> None:
     if results and all(r.error for r in results):
         # Every check failed: almost certainly an outage (Bifrost/Tavily down), not bad claims.
         raise CheckFailed(f"All {len(results)} claim checks failed. First error: {results[0].error}")
-    return results
 
 
 def _summary(results: list[ClaimResult]) -> tuple[int, dict[str, int]]:
@@ -72,22 +77,64 @@ async def _refresh(text: str, results: list[ClaimResult]) -> str:
     )
 
 
-async def verify_answer(text: str, as_of: str | None = None) -> VerifyReport:
-    with usage.track() as u:
+async def verify_answer_events(text: str, as_of: str | None = None,
+                               simulate_outage: bool = False) -> AsyncIterator[tuple[str, dict]]:
+    """Verify an answer, yielding progress events as they happen (drives the SSE endpoint):
+
+    claims   {"claims": [...]}           extracted claims, with their location in the text
+    result   ClaimResult                 one per claim, in the order checks FINISH
+    refresh  {}                          the refreshed answer is being written
+    done     VerifyReport                final report (also saved)
+    """
+    with usage.track() as u, llm.simulate_outage(simulate_outage):
         claims = await extract_claims(text)
-        results = await _verify_all(verify_claim(c) for c in claims)
+        yield "claims", {"claims": [c.model_dump(mode="json") for c in claims]}
+
+        sem = asyncio.Semaphore(settings.concurrency)
+
+        async def run(c):
+            async with sem:
+                return await verify_claim(c)
+
+        tasks = [asyncio.create_task(run(c)) for c in claims]   # tasks inherit usage + outage context
+        by_id: dict[str, ClaimResult] = {}
+        try:
+            for fut in asyncio.as_completed(tasks):
+                r = await fut
+                by_id[r.claim.id] = r
+                yield "result", r.model_dump(mode="json")
+        finally:
+            for t in tasks:   # client went away mid-stream: stop paying for searches
+                t.cancel()
+        results = [by_id[c.id] for c in claims]
+        _raise_if_all_failed(results)
+
+        if any(r.verdict in ("outdated", "disputed") for r in results):
+            yield "refresh", {}
         refreshed = await _refresh(text, results)
+
     overall, counts = _summary(results)
     report = VerifyReport(
         id=uuid.uuid4().hex[:10], created_at=_now(), input_text=text, as_of=as_of,
         results=results, overall=overall, summary=counts, refreshed_answer=refreshed, usage=u,
+        simulated_outage=simulate_outage,
     )
     store.save("report", report)
+    yield "done", report.model_dump(mode="json")
+
+
+async def verify_answer(text: str, as_of: str | None = None, simulate_outage: bool = False) -> VerifyReport:
+    report = None
+    async for event, data in verify_answer_events(text, as_of, simulate_outage):
+        if event == "done":
+            report = VerifyReport.model_validate(data)
+    assert report is not None
     return report
 
 
-async def create_brief(entity: str, meeting_time: str, purpose: str = "") -> Brief:
-    with usage.track() as u:
+async def create_brief(entity: str, meeting_time: str, purpose: str = "",
+                       simulate_outage: bool = False) -> Brief:
+    with usage.track() as u, llm.simulate_outage(simulate_outage):
         sources = await research(entity)
         content, claims = await write_brief(entity, meeting_time, purpose, sources)
         results = await _verify_all(verify_claim(c, extra=cited_evidence(c, sources)) for c in claims)
@@ -107,6 +154,7 @@ def _add_usage(total: Usage, extra: Usage) -> Usage:
     merged.cost_usd = round(merged.cost_usd + extra.cost_usd, 6)
     for k, v in extra.served_by.items():
         merged.served_by[k] = merged.served_by.get(k, 0) + v
+    merged.calls = (merged.calls + extra.calls)[-usage.MAX_CALL_LOG:]
     return merged
 
 

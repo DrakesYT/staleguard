@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 import httpx
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from . import pipeline, store
@@ -43,6 +44,16 @@ async def lifespan(_: FastAPI):
 app = FastAPI(title="StaleGuard", version="0.1.0", lifespan=lifespan)
 
 
+@app.middleware("http")
+async def revalidate_frontend(request, call_next):
+    """No build step means no hashed filenames: make browsers revalidate the UI files (ETag -> 304)
+    so nobody runs a stale app.js against a newer API."""
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 def _fail(e: Exception) -> HTTPException:
     if isinstance(e, (LLMError, SearchError, pipeline.CheckFailed)):
         return HTTPException(status_code=502, detail=str(e))
@@ -63,16 +74,39 @@ async def health():
         "mock": settings.mock,
         "bifrost": {"url": settings.bifrost_url, "reachable": bifrost_ok},
         "tavily_key_set": bool(settings.tavily_api_key) or settings.mock,
-        "models": {"fast": settings.model_fast, "smart": settings.model_smart, "fallbacks": settings.fallbacks},
+        "models": {"fast": settings.model_fast, "smart": settings.model_smart, "fallbacks": settings.fallbacks,
+                   "outage_demo": settings.outage_model},
     }
 
 
 @app.post("/api/verify", response_model=VerifyReport)
 async def verify(req: VerifyRequest):
     try:
-        return await pipeline.verify_answer(req.text, req.as_of)
+        return await pipeline.verify_answer(req.text, req.as_of, req.simulate_outage)
     except Exception as e:
         raise _fail(e)
+
+
+def _sse(event: str, data: dict) -> str:
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+@app.post("/api/verify/stream")
+async def verify_stream(req: VerifyRequest):
+    """Server-sent events: `claims`, then one `result` per claim as each check finishes, `refresh`,
+    `done` (the full report). Failures arrive as an `error` event. POST, so read it with fetch()."""
+    async def events():
+        try:
+            async for event, data in pipeline.verify_answer_events(req.text, req.as_of, req.simulate_outage):
+                yield _sse(event, data)
+        except Exception as e:  # noqa: BLE001 - reported to the client inside the stream
+            if not isinstance(e, (LLMError, SearchError, pipeline.CheckFailed)):
+                log.exception("stream error")
+            yield _sse("error", {"detail": f"{type(e).__name__}: {e}" if not isinstance(
+                e, (LLMError, SearchError, pipeline.CheckFailed)) else str(e)})
+
+    return StreamingResponse(events(), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 @app.get("/api/reports/{report_id}", response_model=VerifyReport)
@@ -86,7 +120,7 @@ async def get_report(report_id: str):
 @app.post("/api/briefs", response_model=Brief)
 async def create_brief(req: BriefRequest):
     try:
-        return await pipeline.create_brief(req.entity, req.meeting_time, req.purpose)
+        return await pipeline.create_brief(req.entity, req.meeting_time, req.purpose, req.simulate_outage)
     except Exception as e:
         raise _fail(e)
 

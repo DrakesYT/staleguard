@@ -21,6 +21,8 @@ class Claim(BaseModel):
     value: str = ""          # the time-sensitive value asserted ("$20/month", "v4.2", "Jane Doe")
     search_query: str = ""
     source_urls: list[str] = Field(default_factory=list)  # set for brief claims
+    quote: str = ""                # verbatim text from the input the claim came from
+    span: list[int] | None = None  # [start, end) of that text in the input, for inline highlighting
 
 
 class Evidence(BaseModel):
@@ -44,6 +46,16 @@ class ClaimResult(BaseModel):
     error: str = ""                # set when this claim's check failed (search/LLM error)
 
 
+class CallInfo(BaseModel):
+    """One LLM call as Bifrost routed it (shown in the UI's routing log)."""
+    task: str
+    requested: str                 # provider/model we asked for (the primary)
+    served: str                    # provider/model that actually answered
+    fallback: bool = False
+    ms: int = 0
+    tokens: int = 0
+
+
 class Usage(BaseModel):
     llm_calls: int = 0
     prompt_tokens: int = 0
@@ -53,11 +65,13 @@ class Usage(BaseModel):
     served_by: dict[str, int] = Field(default_factory=dict)   # "provider/model" -> calls
     tavily_searches: int = 0
     cache_hits: int = 0
+    calls: list[CallInfo] = Field(default_factory=list)
 
 
 class VerifyRequest(BaseModel):
     text: str = Field(min_length=20, max_length=20000)
     as_of: str | None = None       # when the answer was generated (optional, informational)
+    simulate_outage: bool = False  # demo: point the primary model at an unavailable one so Bifrost falls back
 
 
 class VerifyReport(BaseModel):
@@ -70,12 +84,14 @@ class VerifyReport(BaseModel):
     summary: dict[str, int]        # verdict -> count
     refreshed_answer: str = ""
     usage: Usage
+    simulated_outage: bool = False
 
 
 class BriefRequest(BaseModel):
     entity: str = Field(min_length=2, max_length=200)
     meeting_time: str               # ISO datetime
     purpose: str = Field(default="", max_length=500)
+    simulate_outage: bool = False
 
 
 class Source(BaseModel):

@@ -42,11 +42,6 @@ foreach ($p in $providerVars.Keys) {
         }
     }
 }
-# Optional: a provider with a deliberately bad key, to demo Bifrost fallback (see README).
-if ($env:BIFROST_DEMO_BROKEN_PROVIDER) {
-    $providers[$env:BIFROST_DEMO_BROKEN_PROVIDER] = @{ keys = @(@{ name = "broken-demo"; value = "sk-invalid-demo-key"; models = @("*"); weight = 1.0 }) }
-    Write-Host "Demo: '$($env:BIFROST_DEMO_BROKEN_PROVIDER)' is configured with an invalid key to force a fallback"
-}
 
 # Current Bifrost requires a virtual key on /v1 inference by default; this local setup opts out.
 $config = [ordered]@{

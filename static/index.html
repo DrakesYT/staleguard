@@ -31,7 +31,10 @@
         <textarea id="answer" rows="8" placeholder="e.g. The OpenAI API's cheapest model is gpt-3.5-turbo at $0.002 per 1K tokens. The current CEO of Twitter is Jack Dorsey…"></textarea>
         <div class="row">
           <button type="button" class="ghost" id="sample">Load sample</button>
-          <button type="submit" class="primary" id="verify-btn">Check freshness</button>
+          <span class="row-right">
+            <label class="toggle" title="Bifrost demo: every model call asks for an unavailable model first, so you can watch Bifrost fall back to the next provider."><input type="checkbox" id="outage" /> Simulate provider outage</label>
+            <button type="submit" class="primary" id="verify-btn">Check freshness</button>
+          </span>
         </div>
       </form>
       <div id="verify-out"></div>
@@ -47,7 +50,10 @@
         </div>
         <div class="row">
           <span class="hint">Researches the last 30 days, writes a one-page brief, verifies every development, then re-checks it automatically before the meeting.</span>
-          <button type="submit" class="primary" id="brief-btn">Build brief</button>
+          <span class="row-right">
+            <label class="toggle" title="Bifrost demo: every model call asks for an unavailable model first, so you can watch Bifrost fall back."><input type="checkbox" id="outage-brief" /> Simulate outage</label>
+            <button type="submit" class="primary" id="brief-btn">Build brief</button>
+          </span>
         </div>
       </form>
       <div id="brief-list" class="brief-list"></div>

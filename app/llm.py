@@ -7,6 +7,9 @@ from __future__ import annotations
 
 import json
 import re
+import time
+from contextlib import contextmanager
+from contextvars import ContextVar
 from typing import Any
 
 import httpx
@@ -40,12 +43,19 @@ async def chat(
 
     `task` labels the call (extract / stance / brief / refresh) for mock mode and logs.
     """
+    normal = settings.model_smart if smart else settings.model_fast
+    outage = _outage.get()
+    # Demo outage: ask for the unavailable model first and put the normal primary at the head of the
+    # fallback chain, so Bifrost visibly fails over to it.
+    model = settings.outage_model if outage else normal
+    chain = ([normal] if outage else []) + settings.fallbacks
+
     if settings.mock:
         text = mock.chat(task, messages)
-        usage.record_llm("mock", "mock-model", 300, 120, False)
+        usage.record_llm("mock", "mock-fallback" if outage else "mock-model", 300, 120, outage,
+                         task=task, requested=model, ms=5)
         return text
 
-    model = settings.model_smart if smart else settings.model_fast
     payload: dict[str, Any] = {
         "model": model,
         "messages": messages,
@@ -54,10 +64,11 @@ async def chat(
     }
     if settings.reasoning_effort:
         payload["reasoning_effort"] = settings.reasoning_effort
-    fallbacks = [f for f in settings.fallbacks if f != model]
+    fallbacks = list(dict.fromkeys(f for f in chain if f != model))   # de-dupe, keep order
     if fallbacks:
         payload["fallbacks"] = fallbacks
 
+    t0 = time.perf_counter()
     try:
         r = await _http().post(f"{settings.bifrost_url}/v1/chat/completions", json=payload)
     except httpx.HTTPError as e:
@@ -81,8 +92,25 @@ async def chat(
         int(u.get("prompt_tokens") or 0),
         int(u.get("completion_tokens") or 0),
         bool(routing.get("is_fallback")),
+        task=task,
+        requested=model,
+        ms=int((time.perf_counter() - t0) * 1000),
     )
     return text
+
+
+_outage: ContextVar[bool] = ContextVar("simulate_outage", default=False)
+
+
+@contextmanager
+def simulate_outage(enabled: bool = True):
+    """Within this block, every LLM call asks Bifrost for settings.outage_model first (demo of fallback).
+    A ContextVar, so it only affects the current request, including the tasks it spawns."""
+    token = _outage.set(enabled)
+    try:
+        yield
+    finally:
+        _outage.reset(token)
 
 
 def content_text(content: Any) -> str:

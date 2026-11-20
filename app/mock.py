@@ -63,7 +63,7 @@ def chat(task: str, messages) -> str:
                   if re.search(r"\d|latest|current|ceo|price|version|newest", s, re.I)][:6]
         return json.dumps({"claims": [
             {"text": s, "category": _category(s), "subject": s.split()[0] if s.split() else "",
-             "value": (re.findall(r"\$?\d[\d.,]*%?", s) or [""])[0], "search_query": s[:80]}
+             "value": (re.findall(r"\$?\d[\d.,]*%?", s) or [""])[0], "search_query": s[:80], "quote": s}
             for s in picked
         ]})
     if task == "stance":

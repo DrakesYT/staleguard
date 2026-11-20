@@ -145,6 +145,51 @@ def test_brief_sources_must_name_the_entity():
     assert not mentions("Stripe", {"title": "Stars and Stripes: new director appointed", "snippet": ""})
 
 
+def test_locate_claim_in_text():
+    from app.claims import locate
+    text = "Hi there. Twitter's CEO is  Parag Agrawal, says the bot. Python 3.11 is newest!"
+    assert text[slice(*locate(text, "Twitter's CEO is  Parag Agrawal"))] == "Twitter's CEO is  Parag Agrawal"
+    # re-spaced / re-cased quote still found
+    assert text[slice(*locate(text, "twitter's ceo is parag agrawal."))] == "Twitter's CEO is  Parag Agrawal"
+    # paraphrased quote: fall back to the sentence containing the value
+    assert text[slice(*locate(text, "The newest Python is 3.11", "Python 3.11"))] == "Python 3.11 is newest!"
+    assert locate(text, "nothing like this", "") is None
+
+
+def _sse_events(body: str) -> list[tuple[str, dict]]:
+    import json
+    out = []
+    for block in body.strip().split("\n\n"):
+        lines = dict(line.split(": ", 1) for line in block.splitlines())
+        out.append((lines["event"], json.loads(lines["data"])))
+    return out
+
+
+def test_stream_emits_claims_results_done():
+    text = "The ChatGPT Plus plan costs $20 per month. The latest Python version is 3.12. Paris is in France."
+    with TestClient(app) as c:
+        r = c.post("/api/verify/stream", json={"text": text})
+        assert r.status_code == 200 and r.headers["content-type"].startswith("text/event-stream")
+        events = _sse_events(r.text)
+    names = [e for e, _ in events]
+    assert names[0] == "claims" and names[-1] == "done"
+    claims = events[0][1]["claims"]
+    assert claims and all(cl["span"] for cl in claims)
+    assert names.count("result") == len(claims)
+    done = events[-1][1]
+    assert {r["claim"]["id"] for r in done["results"]} == {cl["id"] for cl in claims}
+    assert done["usage"]["calls"] and done["usage"]["calls"][0]["task"] == "extract"
+
+
+def test_simulated_outage_shows_fallback():
+    with TestClient(app) as c:
+        r = c.post("/api/verify", json={"text": "The latest Python version is 3.12 and it costs $0.", "simulate_outage": True})
+    rep = r.json()
+    assert rep["simulated_outage"] is True
+    assert rep["usage"]["fallbacks_used"] == rep["usage"]["llm_calls"] > 0
+    assert all(call["fallback"] for call in rep["usage"]["calls"])
+
+
 def test_normalise_date():
     assert normalise_date("Mon, 10 Nov 2025 08:00:00 GMT") == "2025-11-10"
     assert normalise_date("2025-11-10T08:00:00Z") == "2025-11-10"

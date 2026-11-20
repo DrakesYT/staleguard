@@ -30,6 +30,9 @@ class Settings:
     )
     # Reasoning models (gpt-oss, Gemini 3.x flash) otherwise spend most of max_tokens thinking.
     reasoning_effort: str = os.getenv("REASONING_EFFORT", "low")
+    # "Simulate outage" demo: requests use this as the primary. The default is a model Google has retired,
+    # so the provider genuinely rejects it and Bifrost serves the request from the fallback chain.
+    outage_model: str = os.getenv("DEMO_OUTAGE_MODEL", "gemini/gemini-2.5-flash")
     tavily_api_key: str = os.getenv("TAVILY_API_KEY", "")
     # STALEGUARD_MOCK=1 runs fully offline with canned search + LLM output (UI dev / demo backup).
     mock: bool = os.getenv("STALEGUARD_MOCK", "0") == "1"

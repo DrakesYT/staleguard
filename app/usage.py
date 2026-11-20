@@ -8,7 +8,7 @@ from __future__ import annotations
 from contextlib import contextmanager
 from contextvars import ContextVar
 
-from .models import Usage
+from .models import CallInfo, Usage
 
 _current: ContextVar[Usage | None] = ContextVar("usage", default=None)
 
@@ -46,10 +46,17 @@ def track():
         _current.reset(token)
 
 
-def record_llm(provider: str, model: str, prompt_toks: int, completion_toks: int, is_fallback: bool) -> None:
+MAX_CALL_LOG = 60
+
+
+def record_llm(provider: str, model: str, prompt_toks: int, completion_toks: int, is_fallback: bool,
+               *, task: str = "", requested: str = "", ms: int = 0) -> None:
     u = _current.get()
     if u is None:
         return
+    if len(u.calls) < MAX_CALL_LOG:
+        u.calls.append(CallInfo(task=task, requested=requested, served=f"{provider}/{model}" if provider else model,
+                                fallback=is_fallback, ms=ms, tokens=prompt_toks + completion_toks))
     u.llm_calls += 1
     u.prompt_tokens += prompt_toks
     u.completion_tokens += completion_toks
