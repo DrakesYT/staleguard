@@ -12,18 +12,27 @@ from .search import dedupe, search
 log = logging.getLogger("staleguard")
 
 # Categories where recent news coverage matters most; we add a news-topic search for these.
-NEWSY = {"leadership", "funding", "regulation", "event", "product", "pricing"}
+NEWSY = {"leadership", "funding", "regulation", "event", "product", "pricing", "api_version"}
 MAX_EVIDENCE = 7
 
 STANCE_SYSTEM = """You check whether web sources confirm a claim TODAY. Today is {today}.
 
 For each numbered source decide:
-- "supports": the source states the same value/fact as the claim
-- "contradicts": the source gives a different/newer value, or says it changed, ended or was replaced
-- "unrelated": the source does not address the specific value in the claim
+- "supports": the source presents the claimed value as true at the time the source was written
+  (an old article can support; its date shows how old that support is)
+- "contradicts": the source gives a different or newer value, OR mentions the claimed value only as a
+  past value ("former CEO", "was valued at ... in 2025", "previous version", "replaced", "ended",
+  "stepped down", "deprecated") - even if the claimed value appears in the text
+- "unrelated": the source does not address the specific value, or is about a different entity
+  with a similar name
 
-Judge only from the source text. Prefer the source's stated date over your own knowledge.
-Also give current_value: the up-to-date value according to the sources if it differs from the claim, else "".
+A more specific value that fits the claim supports it: "React 19.3.1" supports "latest major version is
+React 19"; "$20.00/month" supports "about $20 a month". Only a value that breaks the claim contradicts it.
+Judge only from the source text and its date, never from your own knowledge.
+
+Also give current_value: if any source shows the claim is out of date, the single most recent value
+according to the NEWEST dated sources (e.g. "Kevin Warsh", "Python 3.15", "$159 billion"), max 8 words.
+Do not list several candidates. Use "" if the claim is still correct or the sources don't say.
 
 Reply as JSON:
 {{"stances": [{{"i": 0, "stance": "supports|contradicts|unrelated", "note": "max 15 words"}}],
@@ -35,11 +44,15 @@ def _now() -> str:
 
 
 async def gather_evidence(claim: Claim, *, fresh: bool = False, extra: list[dict] | None = None) -> list[dict]:
+    # Two complementary searches, same credit cost as one query used twice:
+    # - general search with the neutral query finds what is true NOW ("UK Prime Minister");
+    # - news search with the claim itself finds reports that the claimed value CHANGED
+    #   ("Keir Starmer resigns"), which a neutral query can miss when it is ambiguous ("X CEO").
     q = claim.search_query or claim.text
     found = list(extra or [])
     found += await search(q, max_results=5, fresh=fresh)
     if claim.category in NEWSY:
-        found += await search(q, news=True, days=180, max_results=5, fresh=fresh)
+        found += await search(claim.text[:200], news=True, days=180, max_results=5, fresh=fresh)
     # Dated sources first (newest first), undated after: the score depends on dates.
     found = dedupe(found)
     found.sort(key=lambda r: r.get("published") or "", reverse=True)
@@ -61,7 +74,7 @@ async def verify_claim(claim: Claim, *, fresh: bool = False, extra: list[dict] |
 async def _verify_claim(claim: Claim, *, fresh: bool = False, extra: list[dict] | None = None) -> ClaimResult:
     raw = await gather_evidence(claim, fresh=fresh, extra=extra)
     if not raw:
-        verdict, fresh_score, reasons = score(claim.category, [])
+        verdict, fresh_score, reasons = score(claim.category, [], subject=claim.subject)
         return ClaimResult(claim=claim, verdict=verdict, freshness=fresh_score,
                            reasons=reasons, checked_at=_now())
 
@@ -90,7 +103,7 @@ async def _verify_claim(claim: Claim, *, fresh: bool = False, extra: list[dict] 
         stance = s.get("stance") if s.get("stance") in ("supports", "contradicts", "unrelated") else "unrelated"
         evidence.append(Evidence(**r, stance=stance, note=str(s.get("note", ""))[:200]))
 
-    verdict, fresh_score, reasons = score(claim.category, evidence)
+    verdict, fresh_score, reasons = score(claim.category, evidence, subject=claim.subject)
     current_value = str(data.get("current_value", "") if isinstance(data, dict) else "").strip()
     if verdict in ("current", "unverified"):
         current_value = ""

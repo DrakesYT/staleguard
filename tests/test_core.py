@@ -41,6 +41,53 @@ def test_same_age_matters_less_for_slow_categories():
     assert slow > fast
 
 
+def test_authority_tiers_from_url():
+    from app.scoring import authority
+    assert authority("https://www.congress.gov/x").tier == "official"
+    assert authority("https://digital-strategy.ec.europa.eu/en/policies/ai-act").tier == "official"
+    assert authority("https://stripe.com/newsroom/x", subject="Stripe").tier == "official"
+    assert authority("https://news.microsoft.com/build-2026", subject="Microsoft").tier == "official"
+    assert authority("https://docs.python.org/3/whatsnew/3.15.html").tier == "docs"
+    assert authority("https://nodejs.org/en/blog/release/v26.13.0").tier == "docs"
+    assert authority("https://en.wikipedia.org/wiki/Python").tier == "reference"
+    assert authority("https://www.reuters.com/x").tier == "news"
+    assert authority("https://www.youtube.com/watch?v=1").tier == "user"
+    assert authority("https://x.com/someone/status/1", subject="X").tier == "user"   # 'x' too short to match
+    assert authority("https://randomblog.io/post").tier == "default"
+
+
+def test_official_contradiction_beats_user_generated_support():
+    sup = Evidence(url="https://www.youtube.com/watch?v=1", domain="youtube.com", stance="supports",
+                   published=(TODAY - timedelta(days=10)).isoformat())
+    con = Evidence(url="https://docs.example.com/changelog", domain="docs.example.com", stance="contradicts",
+                   published=(TODAY - timedelta(days=10)).isoformat())
+    v, _, reasons = score("api_version", [sup, con], TODAY)
+    assert v == "outdated"
+    assert any("Official/docs sources weigh more" in r for r in reasons)
+    assert any("User-generated sources weigh less" in r for r in reasons)
+
+
+def test_living_document_dates_are_ignored():
+    # Tavily dates Wikipedia pages by creation (2009). A maintained page contradicting the claim must not
+    # lose to a 2025 blog just because of that bogus date.
+    wiki = Evidence(url="https://en.wikipedia.org/wiki/History_of_Python", domain="en.wikipedia.org",
+                    stance="contradicts", published="2009-02-01")
+    blog = Evidence(url="https://blog.example.com/python", domain="blog.example.com",
+                    stance="supports", published=(TODAY - timedelta(days=400)).isoformat())
+    v, _, reasons = score("api_version", [wiki, blog], TODAY)
+    assert v == "outdated"
+    assert any("Dates ignored for maintained pages" in r for r in reasons)
+
+
+def test_living_document_support_keeps_claim_current():
+    wiki = Evidence(url="https://en.wikipedia.org/wiki/Microsoft", domain="en.wikipedia.org",
+                    stance="supports", published="2004-01-01")
+    news = Evidence(url="https://www.reuters.com/x", domain="reuters.com", stance="supports",
+                    published=(TODAY - timedelta(days=5)).isoformat())
+    v, _, _ = score("leadership", [wiki, news], TODAY)
+    assert v == "current"
+
+
 def test_no_relevant_evidence_is_unverified():
     v, _, _ = score("other", [ev("unrelated", 1)], TODAY)
     assert v == "unverified"

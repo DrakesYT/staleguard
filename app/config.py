@@ -25,7 +25,8 @@ class Settings:
     # Bifrost tries these in order if the primary provider fails.
     fallbacks: list[str] = field(
         default_factory=lambda: _list(os.getenv(
-            "MODEL_FALLBACKS", "groq/openai/gpt-oss-120b,gemini/gemini-3.5-flash-lite"))
+            "MODEL_FALLBACKS",
+            "groq/openai/gpt-oss-120b,gemini/gemini-3.5-flash-lite,groq/openai/gpt-oss-20b,groq/qwen/qwen3.8-27b"))
     )
     # Reasoning models (gpt-oss, Gemini 3.x flash) otherwise spend most of max_tokens thinking.
     reasoning_effort: str = os.getenv("REASONING_EFFORT", "low")

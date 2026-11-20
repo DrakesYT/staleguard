@@ -1,0 +1,31 @@
+{
+  "as_of": "2026-11-20",
+  "about": "Held-out claims: written AFTER prompt/scoring tuning on golden.json and never used for tuning. Ground truth checked against live news on the as_of date (see 'truth').",
+  "claims": [
+    {"id": "nvidia-huang", "subject": "Nvidia", "group": "changed_recently", "expected": "outdated", "category": "leadership",
+     "text": "Jensen Huang is the CEO of Nvidia.", "value": "Jensen Huang", "search_query": "Nvidia CEO",
+     "truth": "Huang resigned as CEO on 12 Nov 2026 (MarketWatch, Motley Fool, 16-17 Nov 2026)."},
+    {"id": "apple-cook", "subject": "Apple", "group": "changed_recently", "expected": "outdated", "category": "leadership",
+     "text": "Tim Cook is the CEO of Apple.", "value": "Tim Cook", "search_query": "Apple CEO",
+     "truth": "Cook stepped down in Sep 2026 and became executive chairman; John Ternus is CEO."},
+    {"id": "k8s-136", "subject": "Kubernetes", "group": "changed_recently", "expected": "outdated", "category": "api_version",
+     "text": "Kubernetes v1.36 is the latest Kubernetes release.", "value": "v1.36", "search_query": "Kubernetes latest release version",
+     "truth": "v1.37 is the latest release (Sep 2026)."},
+    {"id": "iphone-15", "subject": "iPhone", "group": "long_outdated", "expected": "outdated", "category": "product",
+     "text": "The latest iPhone is the iPhone 15.", "value": "iPhone 15", "search_query": "latest iPhone model",
+     "truth": "iPhone 16 (2024), 17 (2025), 18 Pro and iPhone Duo (2026) followed."},
+    {"id": "netflix-ads-699", "subject": "Netflix", "group": "long_outdated", "expected": "outdated", "category": "pricing",
+     "text": "Netflix's Standard with ads plan costs $6.99 per month in the US.", "value": "$6.99 per month",
+     "search_query": "Netflix Standard with ads price per month US",
+     "truth": "Raised to $7.99 in Jan 2025; about $8.99 in 2026."},
+    {"id": "amazon-jassy", "subject": "Amazon", "group": "current", "expected": "current", "category": "leadership",
+     "text": "Andy Jassy is the CEO of Amazon.", "value": "Andy Jassy", "search_query": "Amazon CEO",
+     "truth": "CEO since 2021; still CEO (Nov 2026 coverage)."},
+    {"id": "openai-altman", "subject": "OpenAI", "group": "current", "expected": "current", "category": "leadership",
+     "text": "Sam Altman is the CEO of OpenAI.", "value": "Sam Altman", "search_query": "OpenAI CEO",
+     "truth": "Still CEO (NYT DealBook, 18 Nov 2026)."},
+    {"id": "apple-ternus", "subject": "Apple", "group": "current", "expected": "current", "category": "leadership",
+     "text": "John Ternus is the CEO of Apple.", "value": "John Ternus", "search_query": "Apple CEO",
+     "truth": "CEO since Sep 2026."}
+  ]
+}

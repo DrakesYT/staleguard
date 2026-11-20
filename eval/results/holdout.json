@@ -1,0 +1,525 @@
+{
+ "at": "2026-11-20T13:21:40+00:00",
+ "mock": false,
+ "models": {
+  "fast": "gemini/gemini-3.5-flash-lite",
+  "fallbacks": [
+   "groq/openai/gpt-oss-120b",
+   "gemini/gemini-3.5-flash-lite",
+   "groq/openai/gpt-oss-20b",
+   "groq/qwen/qwen3.8-27b"
+  ]
+ },
+ "runs": [
+  {
+   "n": 8,
+   "strict": 8,
+   "lenient": 8,
+   "rows": [
+    {
+     "id": "nvidia-huang",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Colette Kress",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-19",
+      "Official/docs sources weigh more: nvidia.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "cnbc.com",
+       "stance": "contradicts",
+       "note": "Refers to him as former Nvidia CEO."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "States Nvidia is searching for a new CEO to replace Huang."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Mentions Jensen Huang's resignation and Interim CEO Colette Kress."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "States he served as CEO until his resignation in 2026."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Mentions the departure of CEO Jensen Huang."
+      },
+      {
+       "published": "2026-09-15",
+       "domain": "forbes.com",
+       "stance": "contradicts",
+       "note": "States he resigned as CEO in November 2026."
+      },
+      {
+       "published": "2026-04-02",
+       "domain": "nvidianews.nvidia.com",
+       "stance": "contradicts",
+       "note": "States he previously served as chief executive officer."
+      }
+     ]
+    },
+    {
+     "id": "apple-cook",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "John Ternus",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-12",
+      "Official/docs sources weigh more: apple.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "axios.com",
+       "stance": "contradicts",
+       "note": "Mentions Cook as executive chairman, not CEO."
+      },
+      {
+       "published": "2026-11-10",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Served as CEO until August 31, 2026, now executive chairman."
+      },
+      {
+       "published": "2026-10-08",
+       "domain": "theverge.com",
+       "stance": "contradicts",
+       "note": "Stepped down as Apple CEO in September."
+      },
+      {
+       "published": "2026-10-08",
+       "domain": "the-independent.com",
+       "stance": "contradicts",
+       "note": "Describes Cook as former chief executive, now executive chair."
+      },
+      {
+       "published": "2026-09-03",
+       "domain": "apple.com",
+       "stance": "contradicts",
+       "note": "Lists Tim Cook as Executive Chair."
+      },
+      {
+       "published": "2026-09-02",
+       "domain": "applescoop.org",
+       "stance": "contradicts",
+       "note": "John Ternus replaced Tim Cook as CEO."
+      },
+      {
+       "published": "2026-08-19",
+       "domain": "apple.com",
+       "stance": "contradicts",
+       "note": "Announced Cook to become executive chairman and John Ternus CEO."
+      }
+     ]
+    },
+    {
+     "id": "k8s-136",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "v1.37",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "3 source(s) contradict it",
+      "Official/docs sources weigh more: github.com, kubernetes.io",
+      "Dates ignored for maintained pages (search engines report their creation date): endoflife.date, github.com, kubernetes.io",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-29",
+       "domain": "github.com",
+       "stance": "contradicts",
+       "note": "Source shows v1.37 is newer than v1.36."
+      },
+      {
+       "published": "2026-09-24",
+       "domain": "endoflife.date",
+       "stance": "contradicts",
+       "note": "Shows v1.37 is a newer release than v1.36."
+      },
+      {
+       "published": "2026-08-26",
+       "domain": "kubernetes.io",
+       "stance": "contradicts",
+       "note": "Shows 1.37 is a more recent minor release than 1.36."
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "wboc.com",
+       "stance": "unrelated",
+       "note": "Does not state the latest Kubernetes release version."
+      },
+      {
+       "published": "2026-09-24",
+       "domain": "blogs.oracle.com",
+       "stance": "unrelated",
+       "note": "Does not mention the latest Kubernetes version."
+      },
+      {
+       "published": "2026-07-02",
+       "domain": "csoonline.com",
+       "stance": "unrelated",
+       "note": "Does not state the latest Kubernetes release."
+      },
+      {
+       "published": "2026-06-16",
+       "domain": "manilatimes.net",
+       "stance": "unrelated",
+       "note": "Discusses Arcfra Kubernetes Engine version, not Kubernetes itself."
+      }
+     ]
+    },
+    {
+     "id": "iphone-15",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "iPhone 18 Pro / iPhone Duo",
+     "reasons": [
+      "'product' facts go stale fast (half-life 90 days)",
+      "5 source(s) contradict it; newest 2026-11-18",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-18",
+       "domain": "apple.com",
+       "stance": "contradicts",
+       "note": "Lists newer models like iPhone 18 Pro and iPhone 17."
+      },
+      {
+       "published": "2026-11-16",
+       "domain": "pcmag.com",
+       "stance": "contradicts",
+       "note": "Compares newer models like iPhone 17 and iPhone 16."
+      },
+      {
+       "published": "2026-11-09",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "States the most recent models are the iPhone 18 series."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Mentions newer iPhone 18 models."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Mentions newer iPhone 18 models."
+      },
+      {
+       "published": "2026-11-20",
+       "domain": "memeburn.com",
+       "stance": "unrelated",
+       "note": "Mentions iPhone 15 as an existing model."
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "apple.com",
+       "stance": "unrelated",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "id": "netflix-ads-699",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "$8.99 per month",
+     "reasons": [
+      "'pricing' facts go stale fast (half-life 45 days)",
+      "6 source(s) contradict it; newest 2026-11-17",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-17",
+       "domain": "shattered.io",
+       "stance": "contradicts",
+       "note": "Lists Standard with ads as $8.99 per month."
+      },
+      {
+       "published": "2026-09-30",
+       "domain": "familypro.io",
+       "stance": "contradicts",
+       "note": "States Standard with ads is $8.99 per month."
+      },
+      {
+       "published": "2026-09-22",
+       "domain": "deadline.com",
+       "stance": "contradicts",
+       "note": "States Standard with Ads tier is $8.99 a month."
+      },
+      {
+       "published": "2026-08-05",
+       "domain": "nerdwallet.com",
+       "stance": "contradicts",
+       "note": "States Standard with ads is $8.99 per month."
+      },
+      {
+       "published": "2026-03-31",
+       "domain": "businessinsider.com",
+       "stance": "contradicts",
+       "note": "Lists Standard with Ads as $8.99."
+      },
+      {
+       "published": "2026-03-27",
+       "domain": "cbsnews.com",
+       "stance": "contradicts",
+       "note": "States standard plan with ads is now $8.99 a month, up from $7.99."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Does not specify the price."
+      }
+     ]
+    },
+    {
+     "id": "amazon-jassy",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 3 domain(s) support it; newest 2026-11-19",
+      "User-generated sources weigh less: x.com"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Amazon's Andy Jassy."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Andy Jassy as Amazon President & CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Andy Jassy as Amazon CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Andy Jassy as Amazon CEO."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Andy Jassy as Amazon's CEO."
+      },
+      {
+       "published": "2026-08-15",
+       "domain": "x.com",
+       "stance": "supports",
+       "note": "Shows Andy Jassy leads Amazon."
+      },
+      {
+       "published": "2021-08-25",
+       "domain": "finance.yahoo.com",
+       "stance": "supports",
+       "note": "Notes Andy Jassy took over as Amazon CEO."
+      }
+     ]
+    },
+    {
+     "id": "openai-altman",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 6 domain(s) support it; newest 2026-11-19",
+      "User-generated sources weigh less: youtube.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Sam Altman as the C.E.O of OpenAI."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to OpenAI CEO Sam Altman."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "finance.yahoo.com",
+       "stance": "supports",
+       "note": "Identifies Sam Altman as OpenAI CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "nytimes.com",
+       "stance": "supports",
+       "note": "Identifies Sam Altman as OpenAI's C.E.O."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "cnbc.com",
+       "stance": "supports",
+       "note": "Refers to OpenAI CEO Sam Altman."
+      },
+      {
+       "published": "2026-11-07",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States Sam Altman has been CEO of OpenAI since 2019."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "youtube.com",
+       "stance": "supports",
+       "note": "Identifies Sam Altman as CEO of OpenAI."
+      }
+     ]
+    },
+    {
+     "id": "apple-ternus",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 97,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "5 source(s) on 5 domain(s) support it; newest 2026-10-15",
+      "1 source(s) contradict it",
+      "Official/docs sources weigh more: apple.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-10",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Cook served as CEO until Aug 31, 2026."
+      },
+      {
+       "published": "2026-10-15",
+       "domain": "time.com",
+       "stance": "supports",
+       "note": "Ternus took over as CEO on Sept. 1."
+      },
+      {
+       "published": "2026-10-08",
+       "domain": "theverge.com",
+       "stance": "supports",
+       "note": "Ternus is the new Apple CEO."
+      },
+      {
+       "published": "2026-10-04",
+       "domain": "appleinsider.com",
+       "stance": "supports",
+       "note": "Apple CEO John Ternus is focused on design."
+      },
+      {
+       "published": "2026-09-02",
+       "domain": "applescoop.org",
+       "stance": "supports",
+       "note": "John Ternus officially replaced Tim Cook as CEO."
+      },
+      {
+       "published": "2026-08-19",
+       "domain": "apple.com",
+       "stance": "supports",
+       "note": "Announced Ternus to become Apple CEO."
+      },
+      {
+       "published": "2026-09-03",
+       "domain": "apple.com",
+       "stance": "unrelated",
+       "note": "Tim Cook served as CEO to 2026, now executive chair."
+      }
+     ]
+    }
+   ],
+   "usage": {
+    "llm_calls": 8,
+    "prompt_tokens": 11990,
+    "completion_tokens": 1743,
+    "cost_usd": 0.007955,
+    "fallbacks_used": 0,
+    "served_by": {
+     "gemini/gemini-3.5-flash-lite": 8
+    },
+    "tavily_searches": 15,
+    "cache_hits": 1
+   },
+   "elapsed_s": 45.4
+  }
+ ]
+}

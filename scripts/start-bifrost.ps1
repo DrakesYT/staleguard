@@ -34,7 +34,12 @@ foreach ($p in $providerVars.Keys) {
     $var = $providerVars[$p]
     $val = [Environment]::GetEnvironmentVariable($var, "Process")
     if ($val -and $val -notmatch 'x{6}') {
-        $providers[$p] = @{ keys = @(@{ name = "$p-env"; value = "env.$var"; models = @("*"); weight = 1.0 }) }
+        # Free tiers rate-limit per minute (Gemini 15 req/min, Groq 8k tokens/min per model). Retry a 429
+        # briefly with backoff, then let the request fall back to the next model in the chain.
+        $providers[$p] = [ordered]@{
+            keys           = @(@{ name = "$p-env"; value = "env.$var"; models = @("*"); weight = 1.0 })
+            network_config = [ordered]@{ max_retries = 2; retry_backoff_initial = 1500; retry_backoff_max = 8000 }
+        }
     }
 }
 # Optional: a provider with a deliberately bad key, to demo Bifrost fallback (see README).

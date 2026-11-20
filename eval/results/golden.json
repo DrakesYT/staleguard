@@ -1,0 +1,2371 @@
+{
+ "at": "2026-11-20T13:20:04+00:00",
+ "mock": false,
+ "models": {
+  "fast": "gemini/gemini-3.5-flash-lite",
+  "fallbacks": [
+   "groq/openai/gpt-oss-120b",
+   "gemini/gemini-3.5-flash-lite",
+   "groq/openai/gpt-oss-20b",
+   "groq/qwen/qwen3.8-27b"
+  ]
+ },
+ "runs": [
+  {
+   "n": 19,
+   "strict": 19,
+   "lenient": 19,
+   "rows": [
+    {
+     "id": "twitter-ceo",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Elon Musk",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-13",
+      "User-generated sources weigh less: youtube.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-13",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Elon Musk fired him as Twitter CEO"
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "indiatoday.in",
+       "stance": "contradicts",
+       "note": "then-CEO Parag Agrawal among the top executives who left"
+      },
+      {
+       "published": "2026-07-27",
+       "domain": "youtube.com",
+       "stance": "contradicts",
+       "note": "describes him as former CEO of Twitter"
+      },
+      {
+       "published": "2026-07-18",
+       "domain": "timesofindia.indiatimes.com",
+       "stance": "contradicts",
+       "note": "former CEO of Twitter (now X) ousted by Elon Musk"
+      },
+      {
+       "published": "2026-07-16",
+       "domain": "businessinsider.com",
+       "stance": "contradicts",
+       "note": "Former Twitter CEO Parag Agrawal"
+      },
+      {
+       "published": "2026-07-12",
+       "domain": "moneycontrol.com",
+       "stance": "contradicts",
+       "note": "Agrawal's tenure as CEO ended in October 2022"
+      },
+      {
+       "published": "2025-08-14",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Elon Musk officially becomes Twitter CEO in 2022"
+      }
+     ]
+    },
+    {
+     "id": "python-311",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Python 3.15",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "4 source(s) contradict it; newest 2026-10-30",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Mentions newer versions like Python 3.15, 3.14, 3.13, and 3.12."
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "blog.adafruit.com",
+       "stance": "contradicts",
+       "note": "Lists newer releases including Python 3.15, 3.14, 3.13, and 3.12."
+      },
+      {
+       "published": "2025-10-07",
+       "domain": "liquidweb.com",
+       "stance": "contradicts",
+       "note": "States Python 3.14 is the latest stable version."
+      },
+      {
+       "published": "2025-08-07",
+       "domain": "mostlypython.com",
+       "stance": "contradicts",
+       "note": "Mentions newer versions like Python 3.13."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "casrai.org",
+       "stance": "unrelated",
+       "note": "Mentions Python 3.11 as a minimum requirement, not the latest release."
+      },
+      {
+       "published": "2026-10-28",
+       "domain": "i-programmer.info",
+       "stance": "unrelated",
+       "note": "Does not state Python 3.11 is the latest stable release."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Discusses Pillow, not Python versions."
+      }
+     ]
+    },
+    {
+     "id": "react-18",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "React 19.3.1",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "3 source(s) contradict it; newest 2026-11-12",
+      "User-generated sources weigh less: medium.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "latestn.com",
+       "stance": "contradicts",
+       "note": "Latest version is React 19.3.1."
+      },
+      {
+       "published": "2026-10-28",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "React 19 was released in 2024."
+      },
+      {
+       "published": "2026-10-01",
+       "domain": "medium.com",
+       "stance": "contradicts",
+       "note": "Latest version is React 19.3."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "tapinto.net",
+       "stance": "unrelated",
+       "note": "About university news."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "sports.yahoo.com",
+       "stance": "unrelated",
+       "note": "About an NBA game."
+      },
+      {
+       "published": "2026-09-21",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "About Big Brother."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "espn.com",
+       "stance": "unrelated",
+       "note": "About Russell Westbrook."
+      }
+     ]
+    },
+    {
+     "id": "eu-ai-act-pending",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "adopted",
+     "reasons": [
+      "'regulation' facts change slowly (half-life 240 days)",
+      "5 source(s) contradict it; newest 2026-08-08",
+      "Official/docs sources weigh more: euaiact.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-17",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "The EU AI Act entered into force on August 1, 2024."
+      },
+      {
+       "published": "2026-08-08",
+       "domain": "diplomacyandlaw.com",
+       "stance": "contradicts",
+       "note": "The EU AI Act has been adopted and entered into force in 2024."
+      },
+      {
+       "published": "2026-08-03",
+       "domain": "theverge.com",
+       "stance": "contradicts",
+       "note": "The AI Act's transparency obligations came into effect in August 2026."
+      },
+      {
+       "published": "2026-07-27",
+       "domain": "euaiact.com",
+       "stance": "contradicts",
+       "note": "The EU AI Act is Regulation (EU) 2024/1689 and entered into force on August 1, 2024."
+      },
+      {
+       "published": "2026-07-20",
+       "domain": "diginomica.com",
+       "stance": "contradicts",
+       "note": "References enforcement of the EU AI Act."
+      },
+      {
+       "published": "2026-07-20",
+       "domain": "markets.businessinsider.com",
+       "stance": "unrelated",
+       "note": "Mentions an AI Act-ready compliance module."
+      },
+      {
+       "published": "2026-06-10",
+       "domain": "developingtelecoms.com",
+       "stance": "unrelated",
+       "note": "Mentions the EU AI Act as a standard-bearer."
+      }
+     ]
+    },
+    {
+     "id": "openai-gpt4",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "GPT-6.2 Astra",
+     "reasons": [
+      "'product' facts go stale fast (half-life 90 days)",
+      "6 source(s) contradict it; newest 2026-11-17",
+      "Official/docs sources weigh more: openai.com",
+      "Dates ignored for maintained pages (search engines report their creation date): openai.com",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-17",
+       "domain": "venturebeat.com",
+       "stance": "contradicts",
+       "note": "New flagship is GPT-6.2 Astra."
+      },
+      {
+       "published": "2026-11-12",
+       "domain": "developers.openai.com",
+       "stance": "contradicts",
+       "note": "Flagship model is GPT-6.2 Astra."
+      },
+      {
+       "published": "2026-10-19",
+       "domain": "mixed-news.com",
+       "stance": "contradicts",
+       "note": "Mentions GPT-4o, not GPT-4 as flagship."
+      },
+      {
+       "published": "2026-10-09",
+       "domain": "developers.openai.com",
+       "stance": "contradicts",
+       "note": "Shows newer models like GPT-6 Sol and GPT-5.6."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Discusses GPT-5.6."
+      },
+      {
+       "published": "2026-04-25",
+       "domain": "mindstudio.ai",
+       "stance": "contradicts",
+       "note": "Flagship is GPT-5.5."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "cnet.com",
+       "stance": "unrelated",
+       "note": "Mentions new models generally."
+      }
+     ]
+    },
+    {
+     "id": "intel-gelsinger",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Lip-Bu Tan",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-06",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-06",
+       "domain": "semafor.com",
+       "stance": "contradicts",
+       "note": "Calls him former Intel CEO"
+      },
+      {
+       "published": "2026-10-27",
+       "domain": "taipeitimes.com",
+       "stance": "contradicts",
+       "note": "Calls him ex-Intel CEO"
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "theregister.com",
+       "stance": "contradicts",
+       "note": "Calls him former Intel CEO"
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Calls him former Intel CEO"
+      },
+      {
+       "published": "2025-03-19",
+       "domain": "investing.com",
+       "stance": "contradicts",
+       "note": "States Lip-Bu Tan is Intel's CEO"
+      },
+      {
+       "published": "2025-03-13",
+       "domain": "techrepublic.com",
+       "stance": "contradicts",
+       "note": "States Lip-Bu Tan is replacing Pat Gelsinger"
+      },
+      {
+       "published": "2024-01-30",
+       "domain": "historyoasis.com",
+       "stance": "contradicts",
+       "note": "States Lip-Bu Tan is Intel CEO since March 2025"
+      }
+     ]
+    },
+    {
+     "id": "node-18-lts",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Node.js 26",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "4 source(s) contradict it; newest 2026-11-11",
+      "Official/docs sources weigh more: nodejs.org",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-13",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Node.js 18 is not the current LTS release."
+      },
+      {
+       "published": "2026-11-11",
+       "domain": "nodejs.org",
+       "stance": "contradicts",
+       "note": "Current LTS versions are newer than Node.js 18."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Supported release lines are 22.x, 24.x, and 26.x."
+      },
+      {
+       "published": "2023-10-30",
+       "domain": "blog.risingstack.com",
+       "stance": "contradicts",
+       "note": "Current LTS is Node.js 24 or 26."
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "adtmag.com",
+       "stance": "unrelated",
+       "note": "Discusses annual major releases."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions updating Node.js versions."
+      },
+      {
+       "published": "2025-10-28",
+       "domain": "nodejs.org",
+       "stance": "unrelated",
+       "note": "Discusses Node.js 24.11.0."
+      }
+     ]
+    },
+    {
+     "id": "fed-powell",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Kevin Warsh",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-10-21",
+      "Official/docs sources weigh more: congress.gov, federalreserve.gov",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Calls him former Federal Reserve chief."
+      },
+      {
+       "published": "2026-10-12",
+       "domain": "federalreserve.gov",
+       "stance": "contradicts",
+       "note": "Lists Kevin Warsh as Chairman and Powell's term as ended."
+      },
+      {
+       "published": "2026-10-01",
+       "domain": "politico.com",
+       "stance": "contradicts",
+       "note": "Refers to him as the former Fed chair."
+      },
+      {
+       "published": "2026-09-19",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Lists Kevin Warsh as incumbent Chair."
+      },
+      {
+       "published": "2026-07-08",
+       "domain": "britannica.com",
+       "stance": "contradicts",
+       "note": "States he served as chair from 2018 to 2026."
+      },
+      {
+       "published": "2026-06-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Refers to his eight years as Fed chair in the past tense (2018-2026)."
+      },
+      {
+       "published": "2026-05-27",
+       "domain": "congress.gov",
+       "stance": "contradicts",
+       "note": "States the current chair is Kevin Warsh."
+      }
+     ]
+    },
+    {
+     "id": "uk-pm-starmer",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Andy Burnham",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-19",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "city-journal.org",
+       "stance": "contradicts",
+       "note": "Refers to former Prime Minister Keir Starmer."
+      },
+      {
+       "published": "2026-10-04",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Shows term ended on 20 July 2026."
+      },
+      {
+       "published": "2026-10-03",
+       "domain": "britannica.com",
+       "stance": "contradicts",
+       "note": "States he served as prime minister (2024-26)."
+      },
+      {
+       "published": "2026-09-08",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Lists Andy Burnham as Prime Minister."
+      },
+      {
+       "published": "2026-07-24",
+       "domain": "sfs.georgetown.edu",
+       "stance": "contradicts",
+       "note": "Refers to outgoing Labour prime minister Keir Starmer."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Andy Burnham succeeds Keir Starmer."
+      },
+      {
+       "published": "2013-04-24",
+       "domain": "gov.uk",
+       "stance": "contradicts",
+       "note": "Lists Keir Starmer under Past Prime Ministers (2024 to 2026)."
+      }
+     ]
+    },
+    {
+     "id": "python-314",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 9,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Python 3.15",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "1 source(s) on 1 domain(s) support it; newest 2025-10-07",
+      "1 source(s) contradict it; newest 2026-10-26",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-26",
+       "domain": "blog.adafruit.com",
+       "stance": "contradicts",
+       "note": "Mentions newer Python 3.15.2 release."
+      },
+      {
+       "published": "2025-10-07",
+       "domain": "liquidweb.com",
+       "stance": "supports",
+       "note": "States Python 3.14 is the latest stable version (from Oct 2025)."
+      },
+      {
+       "published": "2026-11-16",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions free-threaded Python but not the latest stable release."
+      },
+      {
+       "published": "2026-09-10",
+       "domain": "quantumcomputingreport.com",
+       "stance": "unrelated",
+       "note": "Mentions Python 3.14 support."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions PyPI security."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "kdnuggets.com",
+       "stance": "unrelated",
+       "note": "General Python installation guide."
+      },
+      {
+       "published": "2025-08-07",
+       "domain": "mostlypython.com",
+       "stance": "unrelated",
+       "note": "Older article about Python 3.13."
+      }
+     ]
+    },
+    {
+     "id": "stripe-915",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "$159 billion",
+     "reasons": [
+      "'funding' facts change slowly (half-life 120 days)",
+      "5 source(s) contradict it; newest 2026-10-16",
+      "User-generated sources weigh less: x.com, youtube.com",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-16",
+       "domain": "smartasset.com",
+       "stance": "contradicts",
+       "note": "Mentions it as a past value from February 2025."
+      },
+      {
+       "published": "2026-05-27",
+       "domain": "fortune.com",
+       "stance": "contradicts",
+       "note": "States valuation rose from $91.5 billion to $159 billion."
+      },
+      {
+       "published": "2026-02-25",
+       "domain": "paymentswrapup.com",
+       "stance": "contradicts",
+       "note": "Shows Stripe reached a $159 billion valuation."
+      },
+      {
+       "published": "2026-02-24",
+       "domain": "x.com",
+       "stance": "contradicts",
+       "note": "Shows Stripe's valuation is $159 billion."
+      },
+      {
+       "published": "2025-03-01",
+       "domain": "youtube.com",
+       "stance": "contradicts",
+       "note": "Refers to past $91.5B valuation from early 2025."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "About PayPal bid."
+      },
+      {
+       "published": "2025-01-21",
+       "domain": "statista.com",
+       "stance": "unrelated",
+       "note": "Discusses 2011-2024 valuation."
+      }
+     ]
+    },
+    {
+     "id": "x-yaccarino",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "5 source(s) contradict it; newest 2026-10-21",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Describes Linda Yaccarino as former X CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "inman.com",
+       "stance": "contradicts",
+       "note": "Refers to Linda Yaccarino as former X CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Calls Linda Yaccarino the former X CEO."
+      },
+      {
+       "published": "2026-10-15",
+       "domain": "wsj.com",
+       "stance": "contradicts",
+       "note": "States she is the former chief executive of X."
+      },
+      {
+       "published": "2026-10-07",
+       "domain": "fortune.com",
+       "stance": "contradicts",
+       "note": "Notes she resigned from X in July 2025."
+      },
+      {
+       "published": "2023-05-14",
+       "domain": "oerlive.com",
+       "stance": "unrelated",
+       "note": "Announces her appointment in 2023."
+      },
+      {
+       "published": "2023-05-14",
+       "domain": "en.azvision.az",
+       "stance": "unrelated",
+       "note": "Reports on her appointment in 2023."
+      }
+     ]
+    },
+    {
+     "id": "chatgpt-plus-20",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 94,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'pricing' facts go stale fast (half-life 45 days)",
+      "5 source(s) on 4 domain(s) support it; newest 2026-11-12"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "bleap.finance",
+       "stance": "supports",
+       "note": "Confirms ChatGPT Plus is priced at $20 per month."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "nocode.mba",
+       "stance": "supports",
+       "note": "States that ChatGPT Plus is $20/month."
+      },
+      {
+       "published": "2026-10-19",
+       "domain": "magai.co",
+       "stance": "supports",
+       "note": "Confirms ChatGPT Plus price is $20 a month."
+      },
+      {
+       "published": "2026-10-02",
+       "domain": "felloai.com",
+       "stance": "supports",
+       "note": "States ChatGPT Plus costs $20."
+      },
+      {
+       "published": "2026-07-09",
+       "domain": "felloai.com",
+       "stance": "supports",
+       "note": "States ChatGPT Plus is $20/month."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Does not specify the price of ChatGPT Plus."
+      },
+      {
+       "published": "2026-06-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "id": "msft-nadella",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 5 domain(s) support it; newest 2026-11-19",
+      "User-generated sources weigh less: linkedin.com",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "techcrunch.com",
+       "stance": "supports",
+       "note": "Refers to Satya Nadella as Microsoft CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Notes Satya Nadella became CEO in 2014."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "techcrunch.com",
+       "stance": "supports",
+       "note": "Refers to Satya Nadella as Microsoft CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Satya Nadella as Microsoft Chief Executive."
+      },
+      {
+       "published": "2026-04-02",
+       "domain": "linkedin.com",
+       "stance": "supports",
+       "note": "Lists Satya Nadella as Chairman and CEO at Microsoft."
+      },
+      {
+       "published": "2026-01-30",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States Satya Nadella is CEO of Microsoft."
+      },
+      {
+       "published": "2024-05-08",
+       "domain": "britannica.com",
+       "stance": "supports",
+       "note": "States Nadella became CEO of Microsoft."
+      }
+     ]
+    },
+    {
+     "id": "alphabet-pichai",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 97,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 7 domain(s) support it; newest 2026-11-06",
+      "User-generated sources weigh less: youtube.com",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-11",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States Pichai has been CEO of Alphabet since 2019."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Sundar Pichai as an executive at Alphabet."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "worldfinance.com",
+       "stance": "supports",
+       "note": "Confirms Pichai as CEO of Alphabet."
+      },
+      {
+       "published": "2026-10-20",
+       "domain": "bigtechnology.com",
+       "stance": "supports",
+       "note": "Refers to Alphabet CEO Sundar Pichai."
+      },
+      {
+       "published": "2025-07-22",
+       "domain": "britannica.com",
+       "stance": "supports",
+       "note": "Notes Pichai became CEO of Alphabet in 2019."
+      },
+      {
+       "published": "2025-05-15",
+       "domain": "youtube.com",
+       "stance": "supports",
+       "note": "Identifies Sundar Pichai as CEO of Alphabet."
+      },
+      {
+       "published": null,
+       "domain": "phemex.com",
+       "stance": "supports",
+       "note": "States Pichai is chief executive of Alphabet."
+      }
+     ]
+    },
+    {
+     "id": "intel-tan",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 99,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 4 domain(s) support it; newest 2026-11-15"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-15",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Lip-Bu Tan as Intel CEO in late 2026."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Describes Lip-Bu Tan as Intel CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Calls Lip-Bu Tan Intel CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Lip-Bu Tan as Intel CEO."
+      },
+      {
+       "published": "2025-03-19",
+       "domain": "investing.com",
+       "stance": "supports",
+       "note": "Reports Lip-Bu Tan taking up post as Intel CEO in March 2025."
+      },
+      {
+       "published": "2025-03-13",
+       "domain": "techrepublic.com",
+       "stance": "supports",
+       "note": "States Lip-Bu Tan named Intel CEO effective March 2025."
+      },
+      {
+       "published": "2024-01-30",
+       "domain": "historyoasis.com",
+       "stance": "supports",
+       "note": "Notes Lip-Bu Tan as Intel CEO since March 2025."
+      }
+     ]
+    },
+    {
+     "id": "eu-ai-act-force",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'regulation' facts change slowly (half-life 240 days)",
+      "5 source(s) on 5 domain(s) support it; newest 2026-11-19",
+      "Official/docs sources weigh more: digital-strategy.ec.europa.eu",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "digital-strategy.ec.europa.eu",
+       "stance": "supports",
+       "note": "States the AI Act entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-11-17",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States the regulation entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-11-04",
+       "domain": "shattered.io",
+       "stance": "supports",
+       "note": "States the text entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "eqs.com",
+       "stance": "supports",
+       "note": "States it came into force on 1 August 2024."
+      },
+      {
+       "published": "2024-11-08",
+       "domain": "artificialintelligenceact.eu",
+       "stance": "supports",
+       "note": "States the AI Act entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions 2 August 2026 rules taking effect, does not mention entry into force date."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions a delay of key deadlines, does not explicitly state the original entry into force date."
+      }
+     ]
+    },
+    {
+     "id": "fed-warsh",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 7 domain(s) support it; newest 2026-11-19",
+      "Official/docs sources weigh more: congress.gov, federalreserve.gov",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "finance.yahoo.com",
+       "stance": "supports",
+       "note": "Calls Kevin Warsh the current Fed Chair."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "nypost.com",
+       "stance": "supports",
+       "note": "Refers to Chairman Kevin Warsh."
+      },
+      {
+       "published": "2026-11-17",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Chair Kevin Warsh."
+      },
+      {
+       "published": "2026-11-16",
+       "domain": "fox59.com",
+       "stance": "supports",
+       "note": "Refers to Fed chairman Kevin Warsh."
+      },
+      {
+       "published": "2026-10-12",
+       "domain": "federalreserve.gov",
+       "stance": "supports",
+       "note": "Lists Kevin Warsh as Chairman."
+      },
+      {
+       "published": "2026-09-19",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "Lists Kevin Warsh as Chair."
+      },
+      {
+       "published": "2026-05-27",
+       "domain": "congress.gov",
+       "stance": "supports",
+       "note": "States the current chair is Kevin Warsh."
+      }
+     ]
+    },
+    {
+     "id": "react-19",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 96,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "3 source(s) on 3 domain(s) support it; newest 2026-11-12",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "latestn.com",
+       "stance": "supports",
+       "note": "Latest version is React 19.3.1 (React 19)."
+      },
+      {
+       "published": "2026-10-28",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "React 19 released."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "React 19.x is current."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "nycitynewsservice.com",
+       "stance": "unrelated",
+       "note": "About Israeli elections."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "thepienews.com",
+       "stance": "unrelated",
+       "note": "About US immigration policy."
+      },
+      {
+       "published": "2026-11-17",
+       "domain": "allears.net",
+       "stance": "unrelated",
+       "note": "About a Disney ride."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "About basketball."
+      }
+     ]
+    }
+   ],
+   "usage": {
+    "llm_calls": 19,
+    "prompt_tokens": 29034,
+    "completion_tokens": 4254,
+    "cost_usd": 0.019343,
+    "fallbacks_used": 0,
+    "served_by": {
+     "gemini/gemini-3.5-flash-lite": 19
+    },
+    "tavily_searches": 34,
+    "cache_hits": 4
+   },
+   "elapsed_s": 59.7
+  },
+  {
+   "n": 19,
+   "strict": 19,
+   "lenient": 19,
+   "rows": [
+    {
+     "id": "twitter-ceo",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Elon Musk",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-13",
+      "User-generated sources weigh less: youtube.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-13",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Shows he was fired, no longer CEO"
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "indiatoday.in",
+       "stance": "contradicts",
+       "note": "Describes him as former CEO"
+      },
+      {
+       "published": "2026-07-27",
+       "domain": "youtube.com",
+       "stance": "contradicts",
+       "note": "Calls him former CEO"
+      },
+      {
+       "published": "2026-07-18",
+       "domain": "timesofindia.indiatimes.com",
+       "stance": "contradicts",
+       "note": "Refers to him as former CEO"
+      },
+      {
+       "published": "2026-07-16",
+       "domain": "businessinsider.com",
+       "stance": "contradicts",
+       "note": "Mentions he left CEO role"
+      },
+      {
+       "published": "2026-07-12",
+       "domain": "moneycontrol.com",
+       "stance": "contradicts",
+       "note": "Notes his tenure ended"
+      },
+      {
+       "published": "2025-08-14",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Wikipedia lists him as former CEO"
+      }
+     ]
+    },
+    {
+     "id": "python-311",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Python 3.15",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "4 source(s) contradict it; newest 2026-10-30",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Shows Python versions up to 3.15 exist."
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "blog.adafruit.com",
+       "stance": "contradicts",
+       "note": "Lists Python 3.15, 3.14, 3.13, 3.12 and 3.11 releases."
+      },
+      {
+       "published": "2025-10-07",
+       "domain": "liquidweb.com",
+       "stance": "contradicts",
+       "note": "States Python 3.14 is the latest stable version."
+      },
+      {
+       "published": "2025-08-07",
+       "domain": "mostlypython.com",
+       "stance": "contradicts",
+       "note": "Mentions Python 3.13 as recent stable version."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "casrai.org",
+       "stance": "unrelated",
+       "note": "Mentions Python 3.11 as a minimum requirement."
+      },
+      {
+       "published": "2026-10-28",
+       "domain": "i-programmer.info",
+       "stance": "unrelated",
+       "note": "Mentions Python 3.11 historically."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Discusses Pillow library."
+      }
+     ]
+    },
+    {
+     "id": "react-18",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "React 19.3.1",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "3 source(s) contradict it; newest 2026-11-12",
+      "User-generated sources weigh less: medium.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "latestn.com",
+       "stance": "contradicts",
+       "note": "Latest version is React 19.3.1."
+      },
+      {
+       "published": "2026-10-28",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "React 19 was released in December 2024."
+      },
+      {
+       "published": "2026-10-01",
+       "domain": "medium.com",
+       "stance": "contradicts",
+       "note": "Latest version is React 19.3."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "tapinto.net",
+       "stance": "unrelated",
+       "note": "About university news."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "sports.yahoo.com",
+       "stance": "unrelated",
+       "note": "About basketball."
+      },
+      {
+       "published": "2026-09-21",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "About Big Brother."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "espn.com",
+       "stance": "unrelated",
+       "note": "About NBA."
+      }
+     ]
+    },
+    {
+     "id": "eu-ai-act-pending",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "adopted and entered into force",
+     "reasons": [
+      "'regulation' facts change slowly (half-life 240 days)",
+      "5 source(s) contradict it; newest 2026-08-08",
+      "Official/docs sources weigh more: euaiact.com",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-17",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "The regulation entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-08-08",
+       "domain": "diplomacyandlaw.com",
+       "stance": "contradicts",
+       "note": "It was adopted and entered into force on August 1, 2024."
+      },
+      {
+       "published": "2026-08-03",
+       "domain": "theverge.com",
+       "stance": "contradicts",
+       "note": "Transparency obligations under the AI Act came into effect."
+      },
+      {
+       "published": "2026-07-27",
+       "domain": "euaiact.com",
+       "stance": "contradicts",
+       "note": "It entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-07-20",
+       "domain": "diginomica.com",
+       "stance": "contradicts",
+       "note": "The EU AI Act is in force with enforcement deadlines."
+      },
+      {
+       "published": "2026-07-20",
+       "domain": "markets.businessinsider.com",
+       "stance": "unrelated",
+       "note": "Mentions an AI Act-ready compliance module."
+      },
+      {
+       "published": "2026-06-10",
+       "domain": "developingtelecoms.com",
+       "stance": "unrelated",
+       "note": "Mentions the EU AI Act generally."
+      }
+     ]
+    },
+    {
+     "id": "openai-gpt4",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'product' facts go stale fast (half-life 90 days)",
+      "4 source(s) contradict it; newest 2026-11-17",
+      "Official/docs sources weigh more: openai.com",
+      "Dates ignored for maintained pages (search engines report their creation date): openai.com",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-17",
+       "domain": "venturebeat.com",
+       "stance": "contradicts",
+       "note": "Flagship is GPT-6.2 Astra."
+      },
+      {
+       "published": "2026-11-12",
+       "domain": "developers.openai.com",
+       "stance": "contradicts",
+       "note": "GPT-6.2 Astra is the flagship model."
+      },
+      {
+       "published": "2026-10-19",
+       "domain": "mixed-news.com",
+       "stance": "contradicts",
+       "note": "GPT-4 is outdated; GPT-4o was mentioned as former."
+      },
+      {
+       "published": "2026-04-25",
+       "domain": "mindstudio.ai",
+       "stance": "contradicts",
+       "note": "Flagship is GPT-5.5 (or newer)."
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "cnet.com",
+       "stance": "unrelated",
+       "note": "Mentions new models without naming the flagship."
+      },
+      {
+       "published": "2026-10-09",
+       "domain": "developers.openai.com",
+       "stance": "unrelated",
+       "note": "Lists various models."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions GPT-5.6."
+      }
+     ]
+    },
+    {
+     "id": "intel-gelsinger",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Lip-Bu Tan",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-06",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-06",
+       "domain": "semafor.com",
+       "stance": "contradicts",
+       "note": "Calls him former Intel CEO"
+      },
+      {
+       "published": "2026-10-27",
+       "domain": "taipeitimes.com",
+       "stance": "contradicts",
+       "note": "Refers to him as ex-Intel CEO"
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "theregister.com",
+       "stance": "contradicts",
+       "note": "Calls him former Intel CEO"
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Calls him former Intel CEO"
+      },
+      {
+       "published": "2025-03-19",
+       "domain": "investing.com",
+       "stance": "contradicts",
+       "note": "Lip-Bu Tan is Intel's CEO"
+      },
+      {
+       "published": "2025-03-13",
+       "domain": "techrepublic.com",
+       "stance": "contradicts",
+       "note": "Replaced Pat Gelsinger in December 2024"
+      },
+      {
+       "published": "2024-01-30",
+       "domain": "historyoasis.com",
+       "stance": "contradicts",
+       "note": "Lip-Bu Tan is CEO since March 2025"
+      }
+     ]
+    },
+    {
+     "id": "node-18-lts",
+     "group": "long_outdated",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Node.js 26 and Node.js 24",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "4 source(s) contradict it; newest 2026-11-11",
+      "Official/docs sources weigh more: nodejs.org",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-13",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Node.js 18 is not the current LTS release."
+      },
+      {
+       "published": "2026-11-11",
+       "domain": "nodejs.org",
+       "stance": "contradicts",
+       "note": "Node.js 18 is not listed as a current LTS release."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Lists supported release lines as 22.x, 24.x, and 26.x."
+      },
+      {
+       "published": "2023-10-30",
+       "domain": "blog.risingstack.com",
+       "stance": "contradicts",
+       "note": "Lists Node.js 24 and 26 as current/LTS releases."
+      },
+      {
+       "published": "2026-10-26",
+       "domain": "adtmag.com",
+       "stance": "unrelated",
+       "note": "Discusses new release model."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "General update instructions."
+      },
+      {
+       "published": "2025-10-28",
+       "domain": "nodejs.org",
+       "stance": "unrelated",
+       "note": "Discusses Node.js 24.11.0."
+      }
+     ]
+    },
+    {
+     "id": "fed-powell",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Kevin Warsh",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-10-21",
+      "Official/docs sources weigh more: congress.gov, federalreserve.gov",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Calls him former Federal Reserve chief."
+      },
+      {
+       "published": "2026-10-12",
+       "domain": "federalreserve.gov",
+       "stance": "contradicts",
+       "note": "Shows Kevin Warsh as Chairman and Powell's term ended in May 2026."
+      },
+      {
+       "published": "2026-10-01",
+       "domain": "politico.com",
+       "stance": "contradicts",
+       "note": "Refers to him as the former Fed chair."
+      },
+      {
+       "published": "2026-09-19",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Lists Kevin Warsh as the incumbent Chair."
+      },
+      {
+       "published": "2026-07-08",
+       "domain": "britannica.com",
+       "stance": "contradicts",
+       "note": "States he served as chair from 2018 to 2026."
+      },
+      {
+       "published": "2026-06-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Discusses his past eight years as chair (2018-2026)."
+      },
+      {
+       "published": "2026-05-27",
+       "domain": "congress.gov",
+       "stance": "contradicts",
+       "note": "States Kevin Warsh is the current chair."
+      }
+     ]
+    },
+    {
+     "id": "uk-pm-starmer",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Andy Burnham",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) contradict it; newest 2026-11-19",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "city-journal.org",
+       "stance": "contradicts",
+       "note": "Refers to Keir Starmer as former Prime Minister."
+      },
+      {
+       "published": "2026-10-04",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Shows his term ended on 20 July 2026."
+      },
+      {
+       "published": "2026-10-03",
+       "domain": "britannica.com",
+       "stance": "contradicts",
+       "note": "States he served as prime minister (2024–26)."
+      },
+      {
+       "published": "2026-09-08",
+       "domain": "en.wikipedia.org",
+       "stance": "contradicts",
+       "note": "Lists Andy Burnham as the Prime Minister."
+      },
+      {
+       "published": "2026-07-24",
+       "domain": "sfs.georgetown.edu",
+       "stance": "contradicts",
+       "note": "Refers to him as outgoing prime minister."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "States Andy Burnham succeeds Keir Starmer."
+      },
+      {
+       "published": "2013-04-24",
+       "domain": "gov.uk",
+       "stance": "contradicts",
+       "note": "Lists Keir Starmer under past prime ministers (2024 to 2026)."
+      }
+     ]
+    },
+    {
+     "id": "python-314",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 9,
+     "strict": true,
+     "lenient": true,
+     "current_value": "Python 3.15",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "1 source(s) on 1 domain(s) support it; newest 2025-10-07",
+      "1 source(s) contradict it; newest 2026-10-26",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-26",
+       "domain": "blog.adafruit.com",
+       "stance": "contradicts",
+       "note": "Mentions newer Python 3.15.2 release, contradicting Python 3.14 as latest."
+      },
+      {
+       "published": "2025-10-07",
+       "domain": "liquidweb.com",
+       "stance": "supports",
+       "note": "Claims Python 3.14 is the latest stable version, but is outdated by source 1."
+      },
+      {
+       "published": "2026-11-16",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions free-threaded Python, does not state latest version."
+      },
+      {
+       "published": "2026-09-10",
+       "domain": "quantumcomputingreport.com",
+       "stance": "unrelated",
+       "note": "Mentions Python 3.14 support, not latest version status."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Does not state the latest Python version."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "kdnuggets.com",
+       "stance": "unrelated",
+       "note": "Does not specify the version number."
+      },
+      {
+       "published": "2025-08-07",
+       "domain": "mostlypython.com",
+       "stance": "unrelated",
+       "note": "Discusses Python 3.13, outdated."
+      }
+     ]
+    },
+    {
+     "id": "stripe-915",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 9,
+     "strict": true,
+     "lenient": true,
+     "current_value": "$159 billion",
+     "reasons": [
+      "'funding' facts change slowly (half-life 120 days)",
+      "1 source(s) on 1 domain(s) support it; newest 2025-03-01",
+      "4 source(s) contradict it; newest 2026-10-16",
+      "User-generated sources weigh less: x.com, youtube.com",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-16",
+       "domain": "smartasset.com",
+       "stance": "contradicts",
+       "note": "Mentions $91.5 billion was in February 2025, since increased."
+      },
+      {
+       "published": "2026-05-27",
+       "domain": "fortune.com",
+       "stance": "contradicts",
+       "note": "Valuation has since ballooned to $159 billion."
+      },
+      {
+       "published": "2026-02-25",
+       "domain": "paymentswrapup.com",
+       "stance": "contradicts",
+       "note": "Stripe reached a $159 billion valuation in February 2026."
+      },
+      {
+       "published": "2026-02-24",
+       "domain": "x.com",
+       "stance": "contradicts",
+       "note": "Valuation soars to $159 billion."
+      },
+      {
+       "published": "2025-03-01",
+       "domain": "youtube.com",
+       "stance": "supports",
+       "note": "Refers to Stripe's $91.5B valuation from early 2025."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "About a bid for PayPal."
+      },
+      {
+       "published": "2025-01-21",
+       "domain": "statista.com",
+       "stance": "unrelated",
+       "note": "Does not state the $91.5 billion valuation."
+      }
+     ]
+    },
+    {
+     "id": "x-yaccarino",
+     "group": "changed_recently",
+     "expected": "outdated",
+     "got": "outdated",
+     "freshness": 0,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "5 source(s) contradict it; newest 2026-10-21",
+      "Newer or stronger sources say something different"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Describes Linda Yaccarino as former X CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "inman.com",
+       "stance": "contradicts",
+       "note": "Refers to Linda Yaccarino as former X CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "contradicts",
+       "note": "Calls Linda Yaccarino the former X CEO."
+      },
+      {
+       "published": "2026-10-15",
+       "domain": "wsj.com",
+       "stance": "contradicts",
+       "note": "Identifies Linda Yaccarino as the former chief executive of X."
+      },
+      {
+       "published": "2026-10-07",
+       "domain": "fortune.com",
+       "stance": "contradicts",
+       "note": "States she resigned from X in July 2025."
+      },
+      {
+       "published": "2023-05-14",
+       "domain": "oerlive.com",
+       "stance": "unrelated",
+       "note": "Announces her appointment in 2023."
+      },
+      {
+       "published": "2023-05-14",
+       "domain": "en.azvision.az",
+       "stance": "unrelated",
+       "note": "Reports on her appointment in 2023."
+      }
+     ]
+    },
+    {
+     "id": "chatgpt-plus-20",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 94,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'pricing' facts go stale fast (half-life 45 days)",
+      "5 source(s) on 4 domain(s) support it; newest 2026-11-12"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "bleap.finance",
+       "stance": "supports",
+       "note": "Confirms ChatGPT Plus is priced at $20 per month."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "nocode.mba",
+       "stance": "supports",
+       "note": "Confirms ChatGPT Plus is $20/month."
+      },
+      {
+       "published": "2026-10-19",
+       "domain": "magai.co",
+       "stance": "supports",
+       "note": "States the ChatGPT Plus price is $20 a month."
+      },
+      {
+       "published": "2026-10-02",
+       "domain": "felloai.com",
+       "stance": "supports",
+       "note": "Confirms ChatGPT Plus costs $20."
+      },
+      {
+       "published": "2026-07-09",
+       "domain": "felloai.com",
+       "stance": "supports",
+       "note": "Confirms ChatGPT Plus is $20/month."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Discusses subscription changes without stating the price."
+      },
+      {
+       "published": "2026-06-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions ChatGPT Plus in title but does not state the price."
+      }
+     ]
+    },
+    {
+     "id": "msft-nadella",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 5 domain(s) support it; newest 2026-11-19",
+      "User-generated sources weigh less: linkedin.com",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "techcrunch.com",
+       "stance": "supports",
+       "note": "Refers to Satya Nadella as Microsoft CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Notes Satya Nadella became Microsoft CEO in 2014."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "techcrunch.com",
+       "stance": "supports",
+       "note": "Refers to Satya Nadella as Microsoft CEO."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Satya Nadella as Microsoft Chief Executive."
+      },
+      {
+       "published": "2026-04-02",
+       "domain": "linkedin.com",
+       "stance": "supports",
+       "note": "States Satya Nadella is Chairman and CEO at Microsoft."
+      },
+      {
+       "published": "2026-01-30",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States Satya Nadella is the CEO of Microsoft."
+      },
+      {
+       "published": "2024-05-08",
+       "domain": "britannica.com",
+       "stance": "supports",
+       "note": "Notes Nadella became CEO of Microsoft in 2014."
+      }
+     ]
+    },
+    {
+     "id": "alphabet-pichai",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 97,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 7 domain(s) support it; newest 2026-11-06",
+      "User-generated sources weigh less: youtube.com",
+      "Dates ignored for maintained pages (search engines report their creation date): britannica.com, wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-11",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States he is CEO of Alphabet Inc. since 2019."
+      },
+      {
+       "published": "2026-11-06",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to him as an executive at Google's parent company."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "worldfinance.com",
+       "stance": "supports",
+       "note": "States he is CEO of Alphabet since 2019."
+      },
+      {
+       "published": "2026-10-20",
+       "domain": "bigtechnology.com",
+       "stance": "supports",
+       "note": "Refers to Alphabet CEO Sundar Pichai."
+      },
+      {
+       "published": "2025-07-22",
+       "domain": "britannica.com",
+       "stance": "supports",
+       "note": "States he became CEO of Alphabet in 2019."
+      },
+      {
+       "published": "2025-05-15",
+       "domain": "youtube.com",
+       "stance": "supports",
+       "note": "Identifies him as CEO of Alphabet."
+      },
+      {
+       "published": null,
+       "domain": "phemex.com",
+       "stance": "supports",
+       "note": "States he took charge of Alphabet in December 2019."
+      }
+     ]
+    },
+    {
+     "id": "intel-tan",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 99,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 4 domain(s) support it; newest 2026-11-15"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-15",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Refers to Lip-Bu Tan as Intel CEO in late 2026."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Calls Lip-Bu Tan Intel CEO in October 2026."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Lip-Bu Tan as Intel CEO."
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Identifies Lip-Bu Tan as Intel CEO."
+      },
+      {
+       "published": "2025-03-19",
+       "domain": "investing.com",
+       "stance": "supports",
+       "note": "Details Lip-Bu Tan starting as Intel CEO in March 2025."
+      },
+      {
+       "published": "2025-03-13",
+       "domain": "techrepublic.com",
+       "stance": "supports",
+       "note": "Announces Lip-Bu Tan as Intel CEO effective March 2025."
+      },
+      {
+       "published": "2024-01-30",
+       "domain": "historyoasis.com",
+       "stance": "supports",
+       "note": "Lists Lip-Bu Tan as Intel CEO since March 2025."
+      }
+     ]
+    },
+    {
+     "id": "eu-ai-act-force",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'regulation' facts change slowly (half-life 240 days)",
+      "5 source(s) on 5 domain(s) support it; newest 2026-11-19",
+      "Official/docs sources weigh more: digital-strategy.ec.europa.eu",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "digital-strategy.ec.europa.eu",
+       "stance": "supports",
+       "note": "States the AI Act entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-11-17",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "States the regulation entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-11-04",
+       "domain": "shattered.io",
+       "stance": "supports",
+       "note": "States it entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "eqs.com",
+       "stance": "supports",
+       "note": "States it came into force on 1 August 2024."
+      },
+      {
+       "published": "2024-11-08",
+       "domain": "artificialintelligenceact.eu",
+       "stance": "supports",
+       "note": "States the AI Act entered into force on 1 August 2024."
+      },
+      {
+       "published": "2026-08-22",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Discusses rules taking effect in August 2026 without mentioning the entry into force date."
+      },
+      {
+       "published": "2026-07-23",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Mentions amendments and delays without addressing the entry into force date."
+      }
+     ]
+    },
+    {
+     "id": "fed-warsh",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 100,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'leadership' facts change slowly (half-life 180 days)",
+      "7 source(s) on 7 domain(s) support it; newest 2026-11-19",
+      "Official/docs sources weigh more: congress.gov, federalreserve.gov",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-19",
+       "domain": "finance.yahoo.com",
+       "stance": "supports",
+       "note": "Calls him current Fed Chair."
+      },
+      {
+       "published": "2026-11-18",
+       "domain": "nypost.com",
+       "stance": "supports",
+       "note": "Refers to Chairman Kevin Warsh."
+      },
+      {
+       "published": "2026-11-17",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "Mentions Chair Kevin Warsh."
+      },
+      {
+       "published": "2026-11-16",
+       "domain": "fox59.com",
+       "stance": "supports",
+       "note": "States he took the helm at the Fed."
+      },
+      {
+       "published": "2026-10-12",
+       "domain": "federalreserve.gov",
+       "stance": "supports",
+       "note": "Lists Kevin Warsh as Chairman."
+      },
+      {
+       "published": "2026-09-19",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "Lists Kevin Warsh as incumbent Chair."
+      },
+      {
+       "published": "2026-05-27",
+       "domain": "congress.gov",
+       "stance": "supports",
+       "note": "States the current chair is Kevin Warsh."
+      }
+     ]
+    },
+    {
+     "id": "react-19",
+     "group": "current",
+     "expected": "current",
+     "got": "current",
+     "freshness": 96,
+     "strict": true,
+     "lenient": true,
+     "current_value": "",
+     "reasons": [
+      "'api_version' facts go stale fast (half-life 60 days)",
+      "3 source(s) on 3 domain(s) support it; newest 2026-11-12",
+      "Dates ignored for maintained pages (search engines report their creation date): wikipedia.org"
+     ],
+     "error": "",
+     "evidence": [
+      {
+       "published": "2026-11-12",
+       "domain": "latestn.com",
+       "stance": "supports",
+       "note": "Lists latest version 19.3.1 (major 19)"
+      },
+      {
+       "published": "2026-10-28",
+       "domain": "en.wikipedia.org",
+       "stance": "supports",
+       "note": "Mentions React 19 release as current major"
+      },
+      {
+       "published": "2026-10-21",
+       "domain": "news.google.com",
+       "stance": "supports",
+       "note": "React 19.3 release, still major 19"
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "nycitynewsservice.com",
+       "stance": "unrelated",
+       "note": "About New Yorkers reacting to elections"
+      },
+      {
+       "published": "2026-11-19",
+       "domain": "thepienews.com",
+       "stance": "unrelated",
+       "note": "US stakeholders reacting to policy"
+      },
+      {
+       "published": "2026-11-17",
+       "domain": "allears.net",
+       "stance": "unrelated",
+       "note": "Disney fans reacting to ride"
+      },
+      {
+       "published": "2026-10-30",
+       "domain": "news.google.com",
+       "stance": "unrelated",
+       "note": "Sports news about basketball"
+      }
+     ]
+    }
+   ],
+   "usage": {
+    "llm_calls": 19,
+    "prompt_tokens": 28939,
+    "completion_tokens": 4497,
+    "cost_usd": 0.018294,
+    "fallbacks_used": 2,
+    "served_by": {
+     "groq/openai/gpt-oss-120b": 2,
+     "gemini/gemini-3.5-flash-lite": 17
+    },
+    "tavily_searches": 0,
+    "cache_hits": 38
+   },
+   "elapsed_s": 64.2
+  }
+ ]
+}
